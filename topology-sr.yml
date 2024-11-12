@@ -4,7 +4,7 @@ topology:
   nodes:
     router1:
       kind: linux
-      image: sflow_snort
+      image: snort/snort3
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       exec:
@@ -15,7 +15,7 @@ topology:
 
     router2:
       kind: linux
-      image: sflow_snort
+      image: snort/snort3
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       exec:
@@ -26,7 +26,7 @@ topology:
 
     router3:
       kind: linux
-      image: sflow_snort
+      image: snort/snort3
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       exec:
@@ -37,7 +37,7 @@ topology:
 
     router4:
       kind: linux
-      image: sflow_snort
+      image: snort/snort3
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       exec:
