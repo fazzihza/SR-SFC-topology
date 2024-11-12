@@ -1,63 +1,56 @@
 name: srsfc
-mgmt:
-network: fixedips
-ipv4_subnet: 172.100.100.0/24
-ipv6_subnet: 2001:172:100:100::/80
 
 topology:
-  defaults:
-  env:
-    COLLECTOR: 172.100.100.8
   nodes:
     router1:
       kind: linux
       image: sflow_snort
-      mgmt_ipv4: 172.100.100.2
-      mgmt_ipv6: 2001:172:100:100::2
+      mgmt-ipv4: 172.100.100.2
+      mgmt-ipv6: 2001:172:100:100::2
       exec:
         - touch /tmp/initialized
       binds:
-        - router1/daemons:/etc/frr/daemons
-        - router1/frr.conf:/etc/frr/frr.conf
+        - ./router1/daemons:/etc/frr/daemons
+        - ./router1/frr.conf:/etc/frr/frr.conf
 
     router2:
       kind: linux
       image: sflow_snort
-      mgmt_ipv4: 172.100.100.3
-      mgmt_ipv6: 2001:172:100:100::3
+      mgmt-ipv4: 172.100.100.3
+      mgmt-ipv6: 2001:172:100:100::3
       exec:
         - touch /tmp/initialized
       binds:
-        - router2/daemons:/etc/frr/daemons
-        - router2/frr.conf:/etc/frr/frr.conf
+        - ./router2/daemons:/etc/frr/daemons
+        - ./router2/frr.conf:/etc/frr/frr.conf
 
     router3:
       kind: linux
       image: sflow_snort
-      mgmt_ipv4: 172.100.100.4
-      mgmt_ipv6: 2001:172:100:100::4
+      mgmt-ipv4: 172.100.100.4
+      mgmt-ipv6: 2001:172:100:100::4
       exec:
         - touch /tmp/initialized
       binds:
-        - router3/daemons:/etc/frr/daemons
-        - router3/frr.conf:/etc/frr/frr.conf
+        - ./router3/daemons:/etc/frr/daemons
+        - ./router3/frr.conf:/etc/frr/frr.conf
 
     router4:
       kind: linux
       image: sflow_snort
-      mgmt_ipv4: 172.100.100.5
-      mgmt_ipv6: 2001:172:100:100::5
+      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv6: 2001:172:100:100::5
       exec:
         - touch /tmp/initialized
       binds:
-        - router4/daemons:/etc/frr/daemons
-        - router4/frr.conf:/etc/frr/frr.conf
+        - ./router4/daemons:/etc/frr/daemons
+        - ./router4/frr.conf:/etc/frr/frr.conf
 
     PC1:
       kind: linux
       image: sflow/clab-iperf3
-      mgmt_ipv4: 172.100.100.6
-      mgmt_ipv6: 2001:172:100:100::6
+      mgmt-ipv4: 172.100.100.6
+      mgmt-ipv6: 2001:172:100:100::6
       exec:
         - ip addr add 10.0.0.1/24 dev eth1
         - ip route replace default via 10.0.0.2 dev eth1
@@ -67,8 +60,8 @@ topology:
     PC2:
       kind: linux
       image: sflow/clab-iperf3
-      mgmt_ipv4: 172.100.100.7
-      mgmt_ipv6: 2001:172:100:100::7
+      mgmt-ipv4: 172.100.100.7
+      mgmt-ipv6: 2001:172:100:100::7
       exec:
         - ip addr add 10.0.2.1/24 dev eth1
         - ip route replace default via 10.0.2.2 dev eth1
@@ -78,10 +71,10 @@ topology:
     sflow-rt:
       kind: linux
       image: sflow/topology
-      mgmt_ipv4: 172.100.100.8
-      mgmt_ipv6: 2001:172:100:100::8
+      mgmt-ipv4: 172.100.100.8
+      mgmt-ipv6: 2001:172:100:100::8
       ports:
-        - 8008:8008
+        - "8008:8008"
 
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
