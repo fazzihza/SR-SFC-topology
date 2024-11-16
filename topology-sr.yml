@@ -5,32 +5,32 @@ topology:
     router1:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.2
-      mgmt-ipv6: 2001:172:100:100::2
+      #mgmt-ipv4: 172.100.100.5
+      #mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
     router2:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.3
-      mgmt-ipv6: 2001:172:100:100::3
+      #mgmt-ipv4: 172.100.100.5
+      #mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
     router3:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.4
-      mgmt-ipv6: 2001:172:100:100::4
+      #mgmt-ipv4: 172.100.100.5
+      #mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
     router4:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.5
-      mgmt-ipv6: 2001:172:100:100::5
+      #mgmt-ipv4: 172.100.100.5
+      #mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
@@ -40,6 +40,4 @@ topology:
     - endpoints: ["router2:eth2", "router3:eth1"]
     - endpoints: ["router3:eth3", "router4:eth1"]
     - endpoints: ["router4:eth2", "router1:eth2"]
-  network:
-    mgmt-ipv4-subnet: "172.100.100.0/24"
-    mgmt-ipv6-subnet: "2001:172:100:100::/80"
+
