@@ -1,0 +1,3 @@
+network: clab
+ipv4_subnet: 172.100.100.0/24  # Memastikan IP 172.100.100.3 termasuk dalam rentang ini
+ipv6_subnet: 2001:172:100:100::/80
