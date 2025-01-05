@@ -43,7 +43,7 @@ topology:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
 
-      PC1:
+    PC1:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.6
