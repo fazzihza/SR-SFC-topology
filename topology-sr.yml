@@ -13,7 +13,7 @@ topology:
     router1:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router1/daemons:/etc/frr/daemons
@@ -21,7 +21,7 @@ topology:
     router2:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router2/daemons:/etc/frr/daemons
@@ -29,7 +29,7 @@ topology:
     router3:
       kind: linux
       image: dockurr/snort
-      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router3/daemons:/etc/frr/daemons
