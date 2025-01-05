@@ -5,9 +5,9 @@ mgmt:
   ipv6-subnet: 2001:172:100:100::/80
 
 topology:
-defaults:
-    env:
-      COLLECTOR: 172.100.100.8
+  defaults:
+      env:
+        COLLECTOR: 172.100.100.8
 
   nodes:
     router1:
