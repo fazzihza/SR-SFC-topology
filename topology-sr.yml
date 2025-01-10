@@ -12,7 +12,7 @@ topology:
   nodes:
     router1:
       kind: linux
-      image: sflow
+      image: sflow/sflow-rt
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
@@ -20,15 +20,15 @@ topology:
         - router1/frr.conf:/etc/frr/frr.conf
     router2:
       kind: linux
-      image: sflow
+      image: sflow/sflow-rt
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
     router3:
-      kind: sflow
-      image: dockurr/snort
+      kind: linux
+      image: sflow/sflow-rt
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
@@ -36,7 +36,7 @@ topology:
         - router3/frr.conf:/etc/frr/frr.conf
     router4:
       kind: linux
-      image: sflow
+      image: sflow/sflow-rt
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
