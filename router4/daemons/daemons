@@ -16,6 +16,7 @@ staticd=yes
 pbrd=yes
 bfdd=yes
 fabricd=yes
+frr=yes
 vtysh_enable=yes
 zebra_options=" -s 90000000 --daemon -A 127.0.0.1"
 bgpd_options=" --daemon -A 127.0.0.1"
