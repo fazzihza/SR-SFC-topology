@@ -18,7 +18,7 @@ topology:
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
-      startup-config: 
+      startup-config: |
         ip addr add 10.0.0.2/24 dev eth3
         ip -6 addr add fc00:1::1/64 dev lo
         ip -6 addr add 2001:fa::1/64 dev eth3
@@ -33,7 +33,7 @@ topology:
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-      startup-config: 
+      startup-config: |
         ip -6 addr add fc00:2::2/64 dev lo
         ip -6 addr add 2001:12::2/64 dev eth1
         ip -6 addr add 2001:23::1/64 dev eth2
@@ -46,11 +46,11 @@ topology:
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
-      startup-config: 
+      startup-config: |
         ip -6 addr add fc00:3::3/64 dev lo
         ip -6 addr add 2001:34::1/64 dev eth3
         ip -6 addr add 2001:23::2/64 dev eth2
-        
+
     router4:
       kind: linux
       image: sflow/clab-frr
@@ -59,7 +59,7 @@ topology:
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
-      startup-config: 
+      startup-config: |
         ip addr add 10.0.2.2/24 dev eth3
         ip -6 addr add fc00:4::4/64 dev lo
         ip -6 addr add 2001:4b::1/64 dev eth3
