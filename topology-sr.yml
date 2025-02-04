@@ -32,10 +32,10 @@ topology:
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-    startup-config: 
-        ip -6 addr add fc00:2::2/64 dev lo
-        ip -6 addr add 2001:12::2/64 dev eth1
-        ip -6 addr add 2001:23::1/64 dev eth2
+      startup-config: 
+          ip -6 addr add fc00:2::2/64 dev lo
+          ip -6 addr add 2001:12::2/64 dev eth1
+          ip -6 addr add 2001:23::1/64 dev eth2
     router3:
       kind: linux
       image: sflow/clab-frr
