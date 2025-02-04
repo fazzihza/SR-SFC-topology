@@ -33,9 +33,9 @@ topology:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
       startup-config: 
-          ip -6 addr add fc00:2::2/64 dev lo
-          ip -6 addr add 2001:12::2/64 dev eth1
-          ip -6 addr add 2001:23::1/64 dev eth2
+        ip -6 addr add fc00:2::2/64 dev lo
+        ip -6 addr add 2001:12::2/64 dev eth1
+        ip -6 addr add 2001:23::1/64 dev eth2
     router3:
       kind: linux
       image: sflow/clab-frr
@@ -68,7 +68,7 @@ topology:
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
-      startup-config: |
+      startup-config: 
         ip addr add 10.0.0.1/24 dev eth1
         ip route replace default via 10.0.0.2 dev eth1
         ip -6 addr add 2001:fa::2/64 dev eth1
@@ -79,7 +79,7 @@ topology:
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
-      startup-config: |
+      startup-config: 
         ip addr add 10.0.2.1/24 dev eth1
         ip route replace default via 10.0.2.2 dev eth1
         ip -6 addr add 2001:4b::2/64 dev eth1
