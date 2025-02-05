@@ -18,8 +18,7 @@ topology:
       binds:
         - router1/daemons/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
-      exec:
-      - /bin/bash /router1/router1_startup.sh
+      startup-config: router1/router1_startup.sh
 
     router2:
       kind: linux
@@ -29,8 +28,7 @@ topology:
       binds:
         - router2/daemons/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-      exec:
-      - /bin/bash /router2/router2_startup.sh
+      startup-config: router2/router2_startup.sh
 
     router3:
       kind: linux
@@ -40,8 +38,7 @@ topology:
       binds:
         - router3/daemons/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
-      exec:
-      - /bin/bash /router3/router3_startup.sh
+      startup-config: router3/router3_startup.sh
 
     router4:
       kind: linux
@@ -51,8 +48,7 @@ topology:
       binds:
         - router4/daemons/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
-      exec:
-      - /bin/bash /router4/router4_startup.sh
+      startup-config: router4/router4_startup.sh
 
     PC1:
       kind: linux
