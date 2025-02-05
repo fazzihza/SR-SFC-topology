@@ -31,7 +31,7 @@ topology:
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
-        - router1/daemons/daemons:/etc/frr/daemons
+        - router2/daemons/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
       startup-config: |
         ip -6 addr add fc00:2::2/64 dev lo
@@ -44,7 +44,7 @@ topology:
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
-        - router1/daemons/daemons:/etc/frr/daemons
+        - router3/daemons/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
       startup-config: |
         ip -6 addr add fc00:3::3/64 dev lo
@@ -57,7 +57,7 @@ topology:
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
-        - router1/daemons/daemons:/etc/frr/daemons
+        - router4/daemons/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
       startup-config: |
         ip addr add 10.0.2.2/24 dev eth3
@@ -72,10 +72,7 @@ topology:
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
       startup-config: |
-        ip addr add 10.0.0.1/24 dev eth1
-        ip route replace default via 10.0.0.2 dev eth1
-        ip -6 addr add 2001:fa::2/64 dev eth1
-        ip -6 route replace default via 2001:fa::1 dev eth1
+        ./PC1.sh
 
     PC2:
       kind: linux
@@ -83,10 +80,7 @@ topology:
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
       startup-config: |
-        ip addr add 10.0.2.1/24 dev eth1
-        ip route replace default via 10.0.2.2 dev eth1
-        ip -6 addr add 2001:4b::2/64 dev eth1
-        ip -6 route replace default via 2001:4b::1 dev eth1
+        ./PC2.sh
 
 
     sflow-rt:
