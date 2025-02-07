@@ -16,7 +16,7 @@ topology:
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
-        - router1/daemons/daemons:/etc/frr/daemons
+        - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
       startup-config: router1/router1_startup.sh
 
@@ -26,7 +26,7 @@ topology:
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
-        - router2/daemons/daemons:/etc/frr/daemons
+        - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
       startup-config: router2/router2_startup.sh
 
@@ -36,7 +36,7 @@ topology:
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
-        - router3/daemons/daemons:/etc/frr/daemons
+        - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
       startup-config: router3/router3_startup.sh
 
@@ -46,7 +46,7 @@ topology:
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
-        - router4/daemons/daemons:/etc/frr/daemons
+        - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
       startup-config: router4/router4_startup.sh
 
