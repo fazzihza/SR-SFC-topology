@@ -1,0 +1,83 @@
+name: srsfc
+mgmt:
+  network: fixedips
+  ipv4-subnet: 172.100.100.0/24
+  ipv6-subnet: 2001:172:100:100::/80
+
+topology:
+  defaults:
+      env:
+        COLLECTOR: 172.100.100.8
+
+  nodes:
+    router1:
+      kind: linux
+      image: sflow/clab-frr
+      mgmt-ipv4: 172.100.100.2
+      mgmt-ipv6: 2001:172:100:100::2
+      binds:
+        - router1/daemons:/etc/frr/daemons
+        - router1/frr.conf:/etc/frr/frr.conf
+      startup-config: router1/router1_startup.sh
+
+    router2:
+      kind: linux
+      image: sflow/clab-frr
+      mgmt-ipv4: 172.100.100.3
+      mgmt-ipv6: 2001:172:100:100::3
+      binds:
+        - router2/daemons:/etc/frr/daemons
+        - router2/frr.conf:/etc/frr/frr.conf
+      startup-config: router2/router2_startup.sh
+
+    router3:
+      kind: linux
+      image: sflow/clab-frr
+      mgmt-ipv4: 172.100.100.4
+      mgmt-ipv6: 2001:172:100:100::4
+      binds:
+        - router3/daemons:/etc/frr/daemons
+        - router3/frr.conf:/etc/frr/frr.conf
+      startup-config: router3/router3_startup.sh
+
+    router4:
+      kind: linux
+      image: sflow/clab-frr
+      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv6: 2001:172:100:100::5
+      binds:
+        - router4/daemons:/etc/frr/daemons
+        - router4/frr.conf:/etc/frr/frr.conf
+      startup-config: router4/router4_startup.sh
+
+    PC1:
+      kind: linux
+      image: sflow/clab-iperf3
+      mgmt-ipv4: 172.100.100.6
+      mgmt-ipv6: 2001:172:100:100::6
+      startup-config: PC1.sh
+
+    PC2:
+      kind: linux
+      image: sflow/clab-iperf3
+      mgmt-ipv4: 172.100.100.7
+      mgmt-ipv6: 2001:172:100:100::7
+      startup-config: PC2.sh
+
+
+    sflow-rt:
+      kind: linux
+      image: sflow/clab-sflow-rt
+      mgmt-ipv4: 172.100.100.8
+      mgmt-ipv6: 2001:172:100:100::8
+      ports:
+        - "8008:8008"
+
+  links:
+    - endpoints: ["router1:eth1", "router2:eth1"]
+    - endpoints: ["router2:eth2", "router3:eth2"]
+    - endpoints: ["router3:eth3", "router4:eth1"]
+    - endpoints: ["router4:eth2", "router1:eth2"]
+    - endpoints: ["PC1:eth1", "router1:eth3"]
+    - endpoints: ["PC2:eth1", "router4:eth3"]
+
