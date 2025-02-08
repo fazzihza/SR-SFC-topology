@@ -55,22 +55,14 @@ topology:
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
-      startup-config: |
-        ip addr add 10.0.0.1/24 dev eth1
-        ip route replace default via 10.0.0.2 dev eth1
-        ip -6 addr add 2001:fa::2/64 dev eth1
-        ip -6 route replace default via 2001:fa::1 dev eth1
+      startup-config: PC1.sh
 
     PC2:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
-      startup-config: |
-        ip addr add 10.0.2.1/24 dev eth1
-        ip route replace default via 10.0.2.2 dev eth1
-        ip -6 addr add 2001:4b::2/64 dev eth1
-        ip -6 route replace default via 2001:4b::1 dev eth1
+      startup-config: PC2.sh
 
 
     sflow-rt:
