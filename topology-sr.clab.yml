@@ -19,7 +19,11 @@ topology:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
       exec: 
-        - router1/router1_startup.sh
+        - ip addr add 10.0.0.2/24 dev eth3
+        - ip -6 addr add fc00:1::1/64 dev lo
+        - ip -6 addr add 2001:fa::1/64 dev eth3
+        - ip -6 addr add 2001:12::1/64 dev eth1
+        - ip -6 addr add 2001:14::1/64 dev eth2
       
 
     router2:
@@ -31,7 +35,9 @@ topology:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
       exec: 
-        - router2/router2_startup.sh
+        - ip -6 addr add fc00:2::2/64 dev lo
+        - ip -6 addr add 2001:12::2/64 dev eth1
+        - ip -6 addr add 2001:23::1/64 dev eth2
       
 
     router3:
@@ -43,7 +49,9 @@ topology:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
       exec: 
-        - router3/router3_startup.sh
+        - ip -6 addr add fc00:3::3/64 dev lo
+        - ip -6 addr add 2001:34::1/64 dev eth3
+        - ip -6 addr add 2001:23::2/64 dev eth2
       
 
     router4:
@@ -55,7 +63,11 @@ topology:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
       exec: 
-        - router4/router4_startup.sh
+        - ip addr add 10.0.2.2/24 dev eth3
+        - ip -6 addr add fc00:4::4/64 dev lo
+        - ip -6 addr add 2001:4b::1/64 dev eth3
+        - ip -6 addr add 2001:34::2/64 dev eth1
+        - ip -6 addr add 2001:14::2/64 dev eth2
       
 
     pc1:
