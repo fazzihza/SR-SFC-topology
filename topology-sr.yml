@@ -18,7 +18,8 @@ topology:
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
-      startup-config: router1/router1_startup.sh
+      exec: router1/router1_startup.sh
+      
 
     router2:
       kind: linux
@@ -28,7 +29,8 @@ topology:
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-      startup-config: router2/router2_startup.sh
+      exec: router2/router2_startup.sh
+      
 
     router3:
       kind: linux
@@ -38,7 +40,8 @@ topology:
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
-      startup-config: router3/router3_startup.sh
+      exec: router3/router3_startup.sh
+      
 
     router4:
       kind: linux
@@ -48,21 +51,30 @@ topology:
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
-      startup-config: router4/router4_startup.sh
+      exec: router4/router4_startup.sh
+      
 
     pc1:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
-      startup-config: pc1.sh
+      exec:
+      - ip addr add 10.0.0.1/24 dev eth1
+      - ip route replace default via 10.0.0.2 dev eth1
+      - ip -6 addr add 2001:fa::2/64 dev eth1
+      - ip -6 route replace default via 2001:fa::1 dev eth1
 
     pc2:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
-      startup-config: pc2.sh
+      exec:
+      - ip addr add 10.0.2.1/24 dev eth1
+      - ip route replace default via 10.0.2.2 dev eth1
+      - ip -6 addr add 2001:4b::2/64 dev eth1
+      - ip -6 route replace default via 2001:4b::1 dev eth1
 
 
     sflow-rt:
