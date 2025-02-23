@@ -8,6 +8,7 @@ topology:
       # Bind file konfigurasi FRR (pastikan direktori router1 sudah ada)
       binds:
         - ./router1/frr.conf:/etc/frr/frr.conf
+        - ./router1/daemons:/etc/frr/daemons
       # Konfigurasi IP untuk interface yang dipakai sebagai link antar-router dan ke PC
       exec:
         - ip -6 addr add 2001:fa::1/64 dev eth1         # ke PC1
@@ -18,6 +19,7 @@ topology:
       image: frrouting/frr
       binds:
         - ./router2/frr.conf:/etc/frr/frr.conf
+        - ./router2/daemons:/etc/frr/daemons
       exec:
         - ip -6 addr add 2001:db8:12::2/64 dev eth2      # ke router1
         - ip -6 addr add 2001:db8:23::1/64 dev eth3      # ke router3
@@ -26,6 +28,7 @@ topology:
       image: frrouting/frr
       binds:
         - ./router3/frr.conf:/etc/frr/frr.conf
+        - ./router3/daemons:/etc/frr/daemons
       exec:
         - ip -6 addr add 2001:db8:23::2/64 dev eth2      # ke router2
         - ip -6 addr add 2001:db8:34::1/64 dev eth3      # ke router4
