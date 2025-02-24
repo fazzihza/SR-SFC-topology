@@ -1,62 +1,104 @@
 name: srsfc
+mgmt:
+  network: fixedips
+  ipv4-subnet: 172.100.100.0/24
+  ipv6-subnet: 2001:172:100:100::/80
 
 topology:
+  defaults:
+      env:
+        COLLECTOR: 172.100.100.8
+
   nodes:
     router1:
       kind: linux
       image: frrouting/frr
-      # Bind file konfigurasi FRR (pastikan direktori router1 sudah ada)
+      mgmt-ipv4: 172.100.100.2
+      mgmt-ipv6: 2001:172:100:100::2
       binds:
-        - ./router1/frr.conf:/etc/frr/frr.conf
-      # Konfigurasi IP untuk interface yang dipakai sebagai link antar-router dan ke PC
-      exec:
-        - ip -6 addr add 2001:fa::1/64 dev eth1         # ke PC1
-        - ip -6 addr add 2001:db8:12::1/64 dev eth2      # ke router2
-        - ip -6 addr add 2001:db8:14::2/64 dev eth3      # ke router4
+        - router1/daemons:/etc/frr/daemons
+        - router1/frr.conf:/etc/frr/frr.conf
+      exec: 
+        - ip addr add 10.0.0.2/24 dev eth3
+        - ip -6 addr add fc00:1::1/64 dev lo
+        - ip -6 addr add 2001:fa::1/64 dev eth3
+        - ip -6 addr add 2001:12::1/64 dev eth1
+        - ip -6 addr add 2001:14::1/64 dev eth2
+      
+
     router2:
       kind: linux
       image: frrouting/frr
+      mgmt-ipv4: 172.100.100.3
+      mgmt-ipv6: 2001:172:100:100::3
       binds:
-        - ./router2/frr.conf:/etc/frr/frr.conf
-      exec:
-        - ip -6 addr add 2001:db8:12::2/64 dev eth2      # ke router1
-        - ip -6 addr add 2001:db8:23::1/64 dev eth3      # ke router3
+        - router2/daemons:/etc/frr/daemons
+        - router2/frr.conf:/etc/frr/frr.conf
+      exec: 
+        - ip -6 addr add fc00:2::2/64 dev lo
+        - ip -6 addr add 2001:12::2/64 dev eth1
+        - ip -6 addr add 2001:23::1/64 dev eth2
+      
+
     router3:
       kind: linux
       image: frrouting/frr
+      mgmt-ipv4: 172.100.100.4
+      mgmt-ipv6: 2001:172:100:100::4
       binds:
-        - ./router3/frr.conf:/etc/frr/frr.conf
-      exec:
-        - ip -6 addr add 2001:db8:23::2/64 dev eth2      # ke router2
-        - ip -6 addr add 2001:db8:34::1/64 dev eth3      # ke router4
+        - router3/daemons:/etc/frr/daemons
+        - router3/frr.conf:/etc/frr/frr.conf
+      exec: 
+        - ip -6 addr add fc00:3::3/64 dev lo
+        - ip -6 addr add 2001:34::1/64 dev eth3
+        - ip -6 addr add 2001:23::2/64 dev eth2
+      
+
     router4:
       kind: linux
       image: frrouting/frr
+      mgmt-ipv4: 172.100.100.5
+      mgmt-ipv6: 2001:172:100:100::5
       binds:
-        - ./router4/frr.conf:/etc/frr/frr.conf
-      exec:
-        - ip -6 addr add 2001:4b::1/64 dev eth1         # ke PC2
-        - ip -6 addr add 2001:db8:34::2/64 dev eth2      # ke router3
-        - ip -6 addr add 2001:db8:14::1/64 dev eth3      # ke router1
+        - router4/daemons:/etc/frr/daemons
+        - router4/frr.conf:/etc/frr/frr.conf
+      exec: 
+        - ip addr add 10.0.2.2/24 dev eth3
+        - ip -6 addr add fc00:4::4/64 dev lo
+        - ip -6 addr add 2001:4b::1/64 dev eth3
+        - ip -6 addr add 2001:34::2/64 dev eth1
+        - ip -6 addr add 2001:14::2/64 dev eth2
+      
+
     pc1:
       kind: linux
-      image: alpine
+      image: sflow/clab-iperf3
+      mgmt-ipv4: 172.100.100.6
+      mgmt-ipv6: 2001:172:100:100::6
       exec:
-        - ip -6 addr add 2001:fa::2/64 dev eth1
-        - ip -6 route add default via 2001:fa::1
+      - ip addr add 10.0.0.1/24 dev eth1
+      - ip route replace default via 10.0.0.2 dev eth1
+      - ip -6 addr add 2001:fa::2/64 dev eth1
+      - ip -6 route replace default via 2001:fa::1 dev eth1
+
     pc2:
       kind: linux
-      image: alpine
+      image: sflow/clab-iperf3
+      mgmt-ipv4: 172.100.100.7
+      mgmt-ipv6: 2001:172:100:100::7
       exec:
-        - ip -6 addr add 2001:4b::2/64 dev eth1
-        - ip -6 route add default via 2001:4b::1
+      - ip addr add 10.0.2.1/24 dev eth1
+      - ip route replace default via 10.0.2.2 dev eth1
+      - ip -6 addr add 2001:4b::2/64 dev eth1
+      - ip -6 route replace default via 2001:4b::1 dev eth1
+
+
+
   links:
-    # PC ke router
-    - endpoints: ["pc1:eth1", "router1:eth1"]
-    - endpoints: ["pc2:eth1", "router4:eth1"]
-    # Link antar-router
-    - endpoints: ["router1:eth2", "router2:eth2"]
-    - endpoints: ["router2:eth3", "router3:eth2"]
-    - endpoints: ["router3:eth3", "router4:eth2"]
-    - endpoints: ["router4:eth3", "router1:eth3"]
+    - endpoints: ["router1:eth1", "router2:eth1"]
+    - endpoints: ["router2:eth2", "router3:eth2"]
+    - endpoints: ["router3:eth3", "router4:eth1"]
+    - endpoints: ["router4:eth2", "router1:eth2"]
+    - endpoints: ["pc1:eth1", "router1:eth3"]
+    - endpoints: ["pc2:eth1", "router4:eth3"]
 
