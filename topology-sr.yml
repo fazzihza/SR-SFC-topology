@@ -12,7 +12,7 @@ topology:
   nodes:
     router1:
       kind: linux
-      image: sflow/clab-frr   # Image yang sudah menyertakan sflowd
+      image: sflow/frr  # Image yang sudah menyertakan sflowd
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
@@ -21,7 +21,7 @@ topology:
 
     router2:
       kind: linux
-      image: sflow/clab-frr   # Image yang sudah menyertakan sflowd
+      image: sflow/frr   # Image yang sudah menyertakan sflowd
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
@@ -30,7 +30,7 @@ topology:
 
     router3:
       kind: linux
-      image: sflow/clab-frr   # Image yang sudah menyertakan sflowd
+      image: sflow/frr   # Image yang sudah menyertakan sflowd
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
@@ -39,7 +39,7 @@ topology:
 
     router4:
       kind: linux
-      image: sflow/clab-frr   # Image yang sudah menyertakan sflowd
+      image: sflow/frr   # Image yang sudah menyertakan sflowd
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
