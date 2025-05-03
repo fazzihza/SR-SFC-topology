@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     autoconf \
     automake \
+    libreadline-dev \ 
     libtool \
     pkg-config \
     libpcap-dev \
