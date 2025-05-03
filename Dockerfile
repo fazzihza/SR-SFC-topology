@@ -1,7 +1,8 @@
 # Gunakan image dasar Debian
 FROM debian:bullseye-slim
 
-# Install dependensi yang dibutuhkan untuk membangun FRR
+
+# Install dependensi untuk membangun FRR
 RUN apt-get update && \
     apt-get install -y \
     git \
@@ -16,7 +17,12 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     iproute2 \
     iputils-ping \
+    libprotobuf-dev \
+    protobuf-compiler \
+    bison \
+    flex \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Clone repository FRR
 RUN git clone https://github.com/FRRouting/frr.git /frr
