@@ -7,12 +7,14 @@ mgmt:
 topology:
   defaults:
       env:
-        COLLECTOR: 172.100.100.8
+        COLLECTOR: sflow-rt
+        SAMPLING: ${SAMPLING:=1000}
+        POLLING: ${POLLING:=30}
 
   nodes:
     router1:
       kind: linux
-      image: frrouting/frr-sflow  # Image yang sudah menyertakan sflowd
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
@@ -21,7 +23,7 @@ topology:
 
     router2:
       kind: linux
-      image: frrouting/frr-sflow   # Image yang sudah menyertakan sflowd
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
@@ -30,7 +32,7 @@ topology:
 
     router3:
       kind: linux
-      image: frrouting/frr-sflow   # Image yang sudah menyertakan sflowd
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
@@ -39,7 +41,7 @@ topology:
 
     router4:
       kind: linux
-      image: frrouting/frr-sflow   # Image yang sudah menyertakan sflowd
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
@@ -49,7 +51,7 @@ topology:
 
     pc1:
       kind: linux
-      image: sflow/clab-iperf3
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
       exec:
@@ -69,7 +71,13 @@ topology:
       - ip -6 addr add 2001:4b::2/64 dev eth1
       - ip -6 route replace default via 2001:4b::1 dev eth1
 
-
+    sflow-rt:
+      kind: linux
+      image: sflow/clab-sflow-rt
+      mgmt-ipv4: 172.100.100.8
+      mgmt-ipv6: 2001:172:100:100::8
+      ports:
+        - "8008:8008"
 
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]

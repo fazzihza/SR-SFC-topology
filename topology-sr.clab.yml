@@ -7,72 +7,51 @@ mgmt:
 topology:
   defaults:
       env:
-        COLLECTOR: 172.100.100.8
+        COLLECTOR: sflow-rt
+        SAMPLING: ${SAMPLING:=1000}
+        POLLING: ${POLLING:=30}
 
   nodes:
     router1:
       kind: linux
-      image: sflow/frr
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
-      exec: 
-        - ip addr add 10.0.0.2/24 dev eth3
-        - ip -6 addr add fc00:1::1/64 dev lo
-        - ip -6 addr add 2001:fa::1/64 dev eth3
-        - ip -6 addr add 2001:12::1/64 dev eth1
-        - ip -6 addr add 2001:14::1/64 dev eth2
-      
 
     router2:
       kind: linux
-      image: sflow/frr
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-      exec: 
-        - ip -6 addr add fc00:2::2/64 dev lo
-        - ip -6 addr add 2001:12::2/64 dev eth1
-        - ip -6 addr add 2001:23::1/64 dev eth2
-      
 
     router3:
       kind: linux
-      image: sflow/frr
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
-      exec: 
-        - ip -6 addr add fc00:3::3/64 dev lo
-        - ip -6 addr add 2001:34::1/64 dev eth3
-        - ip -6 addr add 2001:23::2/64 dev eth2
-      
 
     router4:
       kind: linux
-      image: sflow/frr
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
-      exec: 
-        - ip addr add 10.0.2.2/24 dev eth3
-        - ip -6 addr add fc00:4::4/64 dev lo
-        - ip -6 addr add 2001:4b::1/64 dev eth3
-        - ip -6 addr add 2001:34::2/64 dev eth1
-        - ip -6 addr add 2001:14::2/64 dev eth2
-      
+        
 
     pc1:
       kind: linux
-      image: sflow/clab-iperf3
+      image: sflow/clab-frr
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
       exec:
@@ -91,7 +70,6 @@ topology:
       - ip route replace default via 10.0.2.2 dev eth1
       - ip -6 addr add 2001:4b::2/64 dev eth1
       - ip -6 route replace default via 2001:4b::1 dev eth1
-
 
     sflow-rt:
       kind: linux
