@@ -19,7 +19,9 @@ RUN apt-get update && \
     protobuf-compiler \
     bison \
     flex \
+    libjson-c-dev \  # Menambahkan pustaka json-c
     && rm -rf /var/lib/apt/lists/*
+
 
 # Clone repository FRR
 RUN git clone https://github.com/FRRouting/frr.git /frr
