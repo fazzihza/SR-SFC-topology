@@ -20,8 +20,13 @@ RUN apt-get update && \
     flex \
     libjson-c-dev \
     python3 \
-    python3-dev && \
+    python3-dev \
+    libelf-dev \
+    curl \
+    wget \
+    ca-certificates && \
     rm -rf /var/lib/apt/lists/*
+
 
 
 
