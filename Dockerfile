@@ -1,8 +1,6 @@
-# Gunakan image dasar Debian
 FROM debian:bullseye-slim
 
-
-# Install dependensi untuk membangun FRR
+# Install dependensi yang dibutuhkan untuk membangun FRR
 RUN apt-get update && \
     apt-get install -y \
     git \
@@ -23,19 +21,8 @@ RUN apt-get update && \
     flex \
     && rm -rf /var/lib/apt/lists/*
 
-
 # Clone repository FRR
 RUN git clone https://github.com/FRRouting/frr.git /frr
 
-# Build FRR dengan sFlow
+# Tentukan bekerja pada direktori frr
 WORKDIR /frr
-RUN ./bootstrap.sh && \
-    ./configure --enable-sflow && \
-    make && \
-    make install
-
-# Clean up
-RUN rm -rf /frr
-
-# Tentukan entry point untuk menjalankan FRR
-CMD ["/usr/lib/frr/frr", "-d"]
