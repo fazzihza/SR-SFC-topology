@@ -1,6 +1,5 @@
 FROM debian:bullseye-slim
 
-# Install dependensi yang dibutuhkan untuk membangun FRR
 RUN apt-get update && \
     apt-get install -y \
     git \
@@ -19,8 +18,11 @@ RUN apt-get update && \
     protobuf-compiler \
     bison \
     flex \
-    libjson-c-dev && \
+    libjson-c-dev \
+    python3 \
+    python3-dev && \
     rm -rf /var/lib/apt/lists/*
+
 
 
 
