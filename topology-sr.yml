@@ -5,11 +5,7 @@ mgmt:
   ipv6-subnet: 2001:172:100:100::/80
 
 topology:
-  defaults:
-      env:
-        COLLECTOR: sflow-rt
-        SAMPLING: ${SAMPLING:=1000}
-        POLLING: ${POLLING:=30}
+  
 
   nodes:
     router1:
@@ -71,13 +67,6 @@ topology:
       - ip -6 addr add 2001:4b::2/64 dev eth1
       - ip -6 route replace default via 2001:4b::1 dev eth1
 
-    sflow-rt:
-      kind: linux
-      image: sflow/clab-sflow-rt
-      mgmt-ipv4: 172.100.100.8
-      mgmt-ipv6: 2001:172:100:100::8
-      ports:
-        - "8008:8008"
 
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
