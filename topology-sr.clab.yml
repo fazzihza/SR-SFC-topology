@@ -6,8 +6,10 @@ mgmt:
 
 topology:
   defaults:
-      env:
-        COLLECTOR: 172.100.100.8
+    env:
+      COLLECTOR: 172.100.100.8
+      SAMPLING: 1000
+      POLLING: 30
         
 
   nodes:
