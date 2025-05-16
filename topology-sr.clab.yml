@@ -73,7 +73,7 @@ topology:
       - ip -6 route replace default via 2001:4b::1 dev eth1
     sflow-rt:
       kind: linux
-      image: sflow/topology
+      image: sflow/clab-sflow-rt
       mgmt-ipv4: 172.100.100.8
       mgmt-ipv6: 2001:172:100:100::8
       ports:
