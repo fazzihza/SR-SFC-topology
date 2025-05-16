@@ -1,27 +1,28 @@
-version: '3.7'
+version: '3'
+
 services:
+  sflow-rt:
+    image: sflow/sflow-rt
+    ports:
+      - "8008:8008"   # Web UI
+      - "6343:6343/udp"  # sFlow input
+    restart: unless-stopped
+
   prometheus:
     image: prom/prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana
     ports:
       - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-storage:/var/lib/grafana
-
-  telegraf:
-    image: telegraf
-    volumes:
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-    network_mode: host
+    restart: unless-stopped
 
 volumes:
   grafana-storage:
