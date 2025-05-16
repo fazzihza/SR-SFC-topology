@@ -5,7 +5,9 @@ mgmt:
   ipv6-subnet: 2001:172:100:100::/80
 
 topology:
-  
+  defaults:
+      env:
+        COLLECTOR: 172.100.100.8
 
   nodes:
     router1:
@@ -66,6 +68,14 @@ topology:
       - ip route replace default via 10.0.2.2 dev eth1
       - ip -6 addr add 2001:4b::2/64 dev eth1
       - ip -6 route replace default via 2001:4b::1 dev eth1
+      
+    sflow-rt:
+      kind: linux
+      image: sflow/topology
+      mgmt_ipv4: 172.100.100.8
+      mgmt_ipv6: 2001:172:100:100::8
+      ports:
+      - 8008:8008
 
 
   links:
