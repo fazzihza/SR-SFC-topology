@@ -21,7 +21,7 @@ services:
   sflow-rt:
     image: sflow/prometheus
     ports:
-      - "8008:8008"
+      - "8010:8008"
 
 volumes:
   grafana-storage:
