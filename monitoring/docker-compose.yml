@@ -18,10 +18,6 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
-  sflow-rt:
-    image: sflow/prometheus
-    ports:
-      - "8010:8008"
 
 volumes:
   grafana-storage:
