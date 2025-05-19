@@ -1,17 +1,5 @@
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
 scrape_configs:
-  - job_name: 'sflow-rt-metrics'
-    metrics_path: /app/prometheus/metrics/ALL/ALL/txt
+  - job_name: 'sflow-rt-analyzer'
+    metrics_path: /app/prometheus/scripts/export.js/metrics/ALL/txt
     static_configs:
-      - targets: ['localhost:8008']
-    params:
-      metric: ['ip_src_dst_bps']
-      key: ['ipsource','ipdestination']
-      label: ['src','dst']
-      value: ['bytes']
-      scale: ['8']
-      minValue: ['1000']
-      maxFlows: ['100']
+      - targets: ['172.100.100.8:8008']
