@@ -86,8 +86,7 @@ topology:
       ports:
         - 8008:8008
         - 6343:6343/udp
-      env:
-        - JAVA_TOOL_OPTIONS=-Dsnmp.ifname=yes
+      cmd: "-Dsnmp.ifname=yes"
 
 
 
