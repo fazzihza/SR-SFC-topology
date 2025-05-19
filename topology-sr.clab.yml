@@ -80,13 +80,11 @@ topology:
       - ip -6 route replace default via 2001:4b::1 dev eth1
     sflow-rt:
       kind: linux
-      image: sflow/prometheus
+      image: sflow/sflow-rt
       mgmt-ipv4: 172.100.100.8
       mgmt-ipv6: 2001:172:100:100::8
       ports:
         - 8008:8008
-        - 6343:6343/udp
-      cmd: "-Dsnmp.ifname=yes"
 
 
 
