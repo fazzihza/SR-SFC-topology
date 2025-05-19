@@ -84,7 +84,10 @@ topology:
       mgmt-ipv4: 172.100.100.8
       mgmt-ipv6: 2001:172:100:100::8
       ports:
-      - 8008:8008
+        - 8008:8008
+        - 6343:6343/udp
+      cmd: ["-Dsnmp.ifname=yes"]
+
 
 
   links:
