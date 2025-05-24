@@ -61,7 +61,7 @@ topology:
       mgmt-ipv6: 2001:172:100:100::6
       binds:
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - pc1/init.sh:/usr/local/bin/init.sh
+        - ./pc1/init.sh:/usr/local/bin/init.sh
 
     pc2:
       kind: linux
