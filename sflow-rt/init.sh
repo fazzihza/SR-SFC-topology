@@ -2,16 +2,23 @@
 
 echo "sflow-rt Init Script: Starting pre-mounted node_exporter AND sFlow-RT application"
 
+echo "Starting node_exporter (pre-mounted)..."
 if [ -f /usr/local/bin/node_exporter ]; then
   if pgrep -x "node_exporter" > /dev/null ; then
     echo "node_exporter is already running."
   else
-    echo "Starting pre-mounted node_exporter..."
+    echo "Attempting to start pre-mounted node_exporter in background..."
     /usr/local/bin/node_exporter --web.listen-address=":9100" &
-    echo "node_exporter started."
+    echo "node_exporter start command issued."
+    sleep 1
+    if pgrep -x "node_exporter" > /dev/null ; then
+        echo "node_exporter process confirmed running."
+    else
+        echo "node_exporter process NOT confirmed running after 1s check. Check for crashes."
+    fi
   fi
 else
-  echo "Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter."
+  echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
 fi
 
 SFLOW_RT_START_SCRIPT="/sflow-rt/start.sh"

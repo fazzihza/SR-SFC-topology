@@ -14,11 +14,11 @@ if [ -f /usr/local/bin/node_exporter ]; then
     if pgrep -x "node_exporter" > /dev/null ; then
         echo "node_exporter process confirmed running."
     else
-        echo "node_exporter process NOT confirmed running after start attempt."
+        echo "node_exporter process NOT confirmed running after 1s check."
     fi
   fi
 else
-  echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
+  echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Check clab binds and host path ./exporter_bin/node_exporter"
 fi
 
 HSFLOWD_START_SCRIPT="/usr/bin/hsflowd_start.sh"

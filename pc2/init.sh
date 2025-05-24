@@ -9,17 +9,24 @@ ip -6 addr add 2001:4b::2/64 dev eth1 || true
 ip -6 route replace default via 2001:4b::1 dev eth1 || true
 echo "IP configuration for pc2 finished."
 
+echo "Starting node_exporter (pre-mounted)..."
 if [ -f /usr/local/bin/node_exporter ]; then
   if pgrep -x "node_exporter" > /dev/null ; then
     echo "node_exporter is already running."
   else
-    echo "Starting pre-mounted node_exporter..."
+    echo "Attempting to start pre-mounted node_exporter in background..."
     /usr/local/bin/node_exporter --web.listen-address=":9100" &
-    echo "node_exporter started."
+    echo "node_exporter start command issued."
+    sleep 1
+    if pgrep -x "node_exporter" > /dev/null ; then
+        echo "node_exporter process confirmed running."
+    else
+        echo "node_exporter process NOT confirmed running after 1s check. Check for crashes if Prometheus target is UP then DOWN."
+    fi
   fi
 else
   echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
 fi
 
-echo "init.sh script finished. Container will keep running."
+echo "init.sh script finished for PC2. Container will keep running."
 tail -f /dev/null
