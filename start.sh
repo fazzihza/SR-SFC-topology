@@ -6,10 +6,3 @@ chmod +x pc1/init.sh
 chmod +x pc2/init.sh
 chmod +x sflow-rt/init.sh
 sudo clab deploy --reconfigure
-sudo docker exec -it clab-srsfc-router1 /usr/local/bin/init.sh
-sudo docker exec -it clab-srsfc-router2 /usr/local/bin/init.sh
-sudo docker exec -it clab-srsfc-router3 /usr/local/bin/init.sh
-sudo docker exec -it clab-srsfc-router4 /usr/local/bin/init.sh
-sudo docker exec -it clab-srsfc-pc1 sh -c "/usr/local/bin/init.sh"
-sudo docker exec -it clab-srsfc-pc2 sh -c "/usr/local/bin/init.sh"
-sudo docker exec -it clab-srsfc-sflow-rt sh -c "/usr/local/bin/init.sh"
