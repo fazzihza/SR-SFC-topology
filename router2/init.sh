@@ -1,44 +1,66 @@
 #!/bin/sh
 
-echo "Router Init Script: Starting FRR, node_exporter, and hsflowd"
+echo "Router Init Script: Configuring hsflowd, starting node_exporter, then FRR"
 
-echo "Starting node_exporter (pre-mounted)..."
+CONF='/etc/hsflowd.conf'
+DEFAULT_INTERFACES="eth1 eth2 eth3"
+NEIGHBORS_TO_MONITOR="${NEIGHBORS:-${DEFAULT_INTERFACES}}"
+SAMPLING="${SAMPLING:-1000}"
+POLLING="${POLLING:-30}"
+COLLECTOR="${COLLECTOR:-none}"
+
+echo "Generating /etc/hsflowd.conf..."
+printf "sflow {\n" > "$CONF"
+# Gunakan nama host container sebagai identitas agen sFlow jika memungkinkan
+if command -v hostname > /dev/null; then
+  AGENT_HOSTNAME=$(hostname)
+  printf " agent = %s\n" "$AGENT_HOSTNAME" >> "$CONF"
+fi
+printf " sampling = %s\n" "$SAMPLING" >> "$CONF"
+printf " polling = %s\n" "$POLLING" >> "$CONF"
+
+if [ "$COLLECTOR" != "none" ] && [ ! -z "$COLLECTOR" ]; then
+  printf " collector { ip = %s }\n" "$COLLECTOR" >> "$CONF"
+else
+  echo "Warning: COLLECTOR for sflow is not set or is 'none'. hsflowd may not send data."
+fi
+
+for dev in $NEIGHBORS_TO_MONITOR; do
+  printf " pcap { dev = %s }\n" "$dev" >> "$CONF"
+done
+printf "}\n" >> "$CONF"
+
+echo "hsflowd.conf content:"
+cat "$CONF"
+
+if [ "$COLLECTOR" != "none" ] && [ ! -z "$COLLECTOR" ]; then
+  if [ -f /usr/sbin/hsflowd ]; then
+    echo "Starting hsflowd in background..."
+    /usr/sbin/hsflowd &
+    sleep 1
+    if pgrep -f "/usr/sbin/hsflowd" > /dev/null; then
+      echo "hsflowd process found."
+    else
+      echo "hsflowd process NOT found after attempting start."
+    fi
+  else
+    echo "/usr/sbin/hsflowd not found. Cannot start hsflowd."
+  fi
+else
+  echo "hsflowd not started because COLLECTOR is not configured."
+fi
+
+echo "Starting node_exporter..."
 if [ -f /usr/local/bin/node_exporter ]; then
   if pgrep -x "node_exporter" > /dev/null ; then
     echo "node_exporter is already running."
   else
-    echo "Attempting to start pre-mounted node_exporter in background..."
+    echo "Starting pre-mounted node_exporter in background..."
     /usr/local/bin/node_exporter --web.listen-address=":9100" &
-    echo "node_exporter start command issued."
-    sleep 1
-    if pgrep -x "node_exporter" > /dev/null ; then
-        echo "node_exporter process confirmed running."
-    else
-        echo "node_exporter process NOT confirmed running after 1s check."
-    fi
+    echo "node_exporter started."
   fi
 else
-  echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Check clab binds and host path ./exporter_bin/node_exporter"
-fi
-
-HSFLOWD_START_SCRIPT="/usr/bin/hsflowd_start.sh"
-echo "Checking for hsflowd_start.sh and COLLECTOR env var..."
-if [ ! -z "${COLLECTOR}" ] && [ -f "$HSFLOWD_START_SCRIPT" ]; then
-  echo "COLLECTOR is set to ${COLLECTOR}. Starting hsflowd via $HSFLOWD_START_SCRIPT..."
-  "$HSFLOWD_START_SCRIPT"
-  sleep 1 
-  if pgrep -f "/usr/sbin/hsflowd" > /dev/null; then
-    echo "hsflowd process found running."
-  else
-    echo "hsflowd process NOT found after attempting start with $HSFLOWD_START_SCRIPT."
-  fi
-else
-  if [ -z "${COLLECTOR}" ]; then
-    echo "COLLECTOR environment variable is not set or empty. hsflowd will not be started by this script's logic."
-  fi
-  if [ ! -f "$HSFLOWD_START_SCRIPT" ]; then
-    echo "$HSFLOWD_START_SCRIPT not found. Cannot start hsflowd using this method."
-  fi
+  echo "Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
 fi
 
 echo "Applying kernel settings and FRR permissions..."
@@ -53,24 +75,12 @@ else
   echo "Failed to set /etc/frr ownership."
 fi
 
-echo "Preparing FRR runtime directory and cleaning stale PIDs..."
-mkdir -p /var/run/frr
-if chown frr:frr /var/run/frr; then
-    echo "Set /var/run/frr ownership."
+FRR_START_SCRIPT="/usr/lib/frr/docker-start"
+echo "Now starting FRR as the main process using: $FRR_START_SCRIPT"
+if [ -f "$FRR_START_SCRIPT" ]; then
+  exec "$FRR_START_SCRIPT"
 else
-    echo "Failed to set /var/run/frr ownership."
-fi
-chmod 775 /var/run/frr
-rm -f /var/run/frr/*.pid
-rm -f /var/run/frr/watchfrr.pid
-echo "Stale FRR PID files cleaned."
-
-FRR_START_SCRIPT_MAIN="/usr/lib/frr/docker-start"
-echo "Now starting FRR as the main process using: $FRR_START_SCRIPT_MAIN"
-if [ -f "$FRR_START_SCRIPT_MAIN" ]; then
-  exec "$FRR_START_SCRIPT_MAIN"
-else
-  echo "ERROR: FRR start script $FRR_START_SCRIPT_MAIN not found! FRR cannot start."
+  echo "ERROR: FRR start script $FRR_START_SCRIPT not found! FRR cannot start."
   echo "Container will keep running via sleep to allow debugging."
   sleep infinity
 fi
