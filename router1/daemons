@@ -11,7 +11,6 @@ pim6d=yes
 nhrpd=yes
 eigrpd=yes
 babeld=yes
-sharpd=yes
 staticd=yes
 pbrd=yes
 bfdd=yes

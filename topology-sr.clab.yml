@@ -20,6 +20,7 @@ topology:
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
+        - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router1/init.sh:/usr/local/bin/init.sh
     # ... (router2, router3, router4 serupa dengan router1) ...
     router2:
@@ -30,6 +31,7 @@ topology:
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
+        - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router2/init.sh:/usr/local/bin/init.sh
     router3:
       kind: linux
@@ -39,6 +41,7 @@ topology:
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
+        - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router3/init.sh:/usr/local/bin/init.sh
     router4:
       kind: linux
@@ -48,6 +51,7 @@ topology:
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
+        - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router4/init.sh:/usr/local/bin/init.sh
 
     pc1:

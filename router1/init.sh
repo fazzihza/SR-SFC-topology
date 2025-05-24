@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Router Init Script: Starting FRR, hsflowd, and pre-mounted node_exporter"
+echo "Router Init Script: Starting FRR and pre-mounted node_exporter"
 
 if pgrep -x "watchfrr" > /dev/null ; then
   echo "FRR (watchfrr) is already running."
@@ -27,24 +27,6 @@ else
   echo "Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter."
 fi
 
-echo "Checking and starting hsflowd service..."
-HSFLOWD_INIT_SCRIPT="/etc/init.d/hsflowd"
-if [ -f "$HSFLOWD_INIT_SCRIPT" ]; then
-  if ! pgrep -x "hsflowd" > /dev/null; then
-    echo "hsflowd not running, attempting to start..."
-    "$HSFLOWD_INIT_SCRIPT" start
-    sleep 1 # Beri waktu sedikit untuk proses dimulai
-    if pgrep -x "hsflowd" > /dev/null; then
-      echo "hsflowd started successfully."
-    else
-      echo "Failed to start hsflowd using init script."
-    fi
-  else
-    echo "hsflowd is already running."
-  fi
-else
-  echo "$HSFLOWD_INIT_SCRIPT not found. Cannot manage hsflowd service."
-fi
-
-echo "init.sh script finished. Container will keep running."
+echo "init.sh script finished. Assuming hsflowd starts automatically if configured."
+echo "Container will keep running."
 tail -f /dev/null
