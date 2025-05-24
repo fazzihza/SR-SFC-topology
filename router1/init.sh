@@ -1,33 +1,52 @@
-#!/bin/sh
+#!/bin/bash
 
-CONF='/etc/hsflowd.conf'
-NEIGHBORS="${NEIGHBORS:-eth1 eth2}"
-SAMPLING="${SAMPLING:-1000}"
-POLLING="${POLLING:-30}"
-COLLECTOR="${COLLECTOR:-none}"
-
-# Buat konfigurasi hsflowd (sFlow daemon)
-printf "sflow {\n" > $CONF
-printf " sampling=$SAMPLING\n" >> $CONF
-printf " polling=$POLLING\n" >> $CONF
-if [ "$COLLECTOR" != "none" ]; then
-  printf " collector { ip=$COLLECTOR }\n" >> $CONF
-fi
-for dev in $NEIGHBORS; do
-  printf " pcap { dev=$dev }\n" >> $CONF
-done
-printf "}\n" >> $CONF
-
-# Aktifkan IPv6 forwarding di kernel (penting supaya routing IPv6 aktif)
-sysctl -w net.ipv6.conf.all.forwarding=1
-
-# Pastikan permission config FRR benar supaya daemon bisa baca
-chown -R frr:frr /etc/frr
-
-# Jalankan hsflowd jika ada collector sFlow
-if [ "$COLLECTOR" != "none" ]; then
-  /usr/sbin/hsflowd &
+if [ -f /usr/lib/frr/frrinit.sh ]; then
+  /usr/lib/frr/frrinit.sh start
+else
+  /usr/sbin/zebra -d -f /etc/frr/zebra.conf
+  /usr/sbin/bgpd -d -f /etc/frr/bgpd.conf
 fi
 
-# Jalankan daemon FRR, yang akan load /etc/frr/frr.conf (konfigurasi routing)
-exec /usr/lib/frr/docker-start
+echo "FRR services started."
+
+FRR_EXPORTER_VERSION="1.4.0"
+ARCH=$(uname -m)
+if [ "$ARCH" = "x86_64" ]; then
+  ARCH="amd64"
+elif [ "$ARCH" = "aarch64" ]; then
+  ARCH="arm64"
+fi
+
+FRR_EXPORTER_TAR="frr_exporter-${FRR_EXPORTER_VERSION}.linux-${ARCH}.tar.gz"
+FRR_EXPORTER_URL="https://github.com/prometheus-community/frr_exporter/releases/download/v${FRR_EXPORTER_VERSION}/${FRR_EXPORTER_TAR}"
+
+echo "Downloading frr-exporter from ${FRR_EXPORTER_URL}"
+wget -q "${FRR_EXPORTER_URL}" -O "/tmp/${FRR_EXPORTER_TAR}"
+
+if [ $? -ne 0 ]; then
+  echo "Failed to download frr-exporter"
+  FALLBACK_URL="https://github.com/prometheus-community/frr_exporter/releases/download/v1.4.0/frr_exporter-1.4.0.linux-amd64.tar.gz"
+  echo "Attempting fallback download: ${FALLBACK_URL}"
+  wget -q "${FALLBACK_URL}" -O "/tmp/frr_exporter-fallback.tar.gz"
+  if [ $? -eq 0 ]; then
+    tar -xzf "/tmp/frr_exporter-fallback.tar.gz" -C /usr/local/bin/ --strip-components=1 "frr_exporter-${FRR_EXPORTER_VERSION}.linux-amd64/frr_exporter"
+  else
+    echo "Fallback download also failed. Exporter not started."
+    tail -f /dev/null
+    exit 1
+  fi
+else
+  tar -xzf "/tmp/${FRR_EXPORTER_TAR}" -C /usr/local/bin/ --strip-components=1 "frr_exporter-${FRR_EXPORTER_VERSION}.linux-${ARCH}/frr_exporter"
+fi
+
+rm -f "/tmp/${FRR_EXPORTER_TAR}" "/tmp/frr_exporter-fallback.tar.gz"
+
+if [ -f /usr/local/bin/frr_exporter ]; then
+  echo "Starting frr-exporter..."
+  /usr/local/bin/frr_exporter --web.listen-address=":9342" &
+else
+  echo "frr_exporter not found. Not starting exporter."
+fi
+
+echo "init.sh script finished. Container will keep running."
+tail -f /dev/null

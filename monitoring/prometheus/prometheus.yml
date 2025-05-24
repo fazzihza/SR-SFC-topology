@@ -1,5 +1,16 @@
+global:
+  scrape_interval: 15s # Interval default untuk mengambil metrik
+
 scrape_configs:
-  - job_name: 'sflow-rt-analyzer'
-    metrics_path: /app/prometheus/scripts/export.js/metrics/ALL/txt
+  - job_name: 'sflow-rt'
+    metrics_path: /app/prometheus/metrics # Sesuaikan path ini jika berbeda setelah instalasi aplikasi di sFlow-RT
     static_configs:
-      - targets: ['172.100.100.8:8008']
+      - targets: ['172.100.100.8:8008'] # IP dan port sFlow-RT
+
+  - job_name: 'frr-routers'
+    static_configs:
+      - targets:
+          - '172.100.100.2:9342' # router1 frr-exporter
+          - '172.100.100.3:9342' # router2 frr-exporter
+          - '172.100.100.4:9342' # router3 frr-exporter
+          - '172.100.100.5:9342' # router4 frr-exporter

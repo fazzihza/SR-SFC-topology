@@ -7,10 +7,9 @@ mgmt:
 topology:
   defaults:
     env:
-      COLLECTOR: 172.100.100.8
+      COLLECTOR: 172.100.100.8 # IP sflow-rt
       SAMPLING: 1000
       POLLING: 30
-        
 
   nodes:
     router1:
@@ -21,9 +20,8 @@ topology:
       binds:
         - router1/daemons:/etc/frr/daemons
         - router1/frr.conf:/etc/frr/frr.conf
-        - router1/init.sh:/usr/local/bin/init.sh 
-      
-
+        - router1/init.sh:/usr/local/bin/init.sh
+    # ... (router2, router3, router4 serupa dengan router1) ...
     router2:
       kind: linux
       image: sflow/clab-frr
@@ -32,8 +30,7 @@ topology:
       binds:
         - router2/daemons:/etc/frr/daemons
         - router2/frr.conf:/etc/frr/frr.conf
-        - router2/init.sh:/usr/local/bin/init.sh 
-
+        - router2/init.sh:/usr/local/bin/init.sh
     router3:
       kind: linux
       image: sflow/clab-frr
@@ -42,9 +39,7 @@ topology:
       binds:
         - router3/daemons:/etc/frr/daemons
         - router3/frr.conf:/etc/frr/frr.conf
-        - router3/init.sh:/usr/local/bin/init.sh 
-      
-
+        - router3/init.sh:/usr/local/bin/init.sh
     router4:
       kind: linux
       image: sflow/clab-frr
@@ -53,9 +48,7 @@ topology:
       binds:
         - router4/daemons:/etc/frr/daemons
         - router4/frr.conf:/etc/frr/frr.conf
-        - router4/init.sh:/usr/local/bin/init.sh 
-      
-        
+        - router4/init.sh:/usr/local/bin/init.sh
 
     pc1:
       kind: linux
@@ -63,10 +56,10 @@ topology:
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
       exec:
-      - ip addr add 10.0.0.1/24 dev eth1
-      - ip route replace default via 10.0.0.2 dev eth1
-      - ip -6 addr add 2001:fa::2/64 dev eth1
-      - ip -6 route replace default via 2001:fa::1 dev eth1
+        - ip addr add 10.0.0.1/24 dev eth1
+        - ip route replace default via 10.0.0.2 dev eth1
+        - ip -6 addr add 2001:fa::2/64 dev eth1
+        - ip -6 route replace default via 2001:fa::1 dev eth1
 
     pc2:
       kind: linux
@@ -74,10 +67,11 @@ topology:
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
       exec:
-      - ip addr add 10.0.2.1/24 dev eth1
-      - ip route replace default via 10.0.2.2 dev eth1
-      - ip -6 addr add 2001:4b::2/64 dev eth1
-      - ip -6 route replace default via 2001:4b::1 dev eth1
+        - ip addr add 10.0.2.1/24 dev eth1
+        - ip route replace default via 10.0.2.2 dev eth1
+        - ip -6 addr add 2001:4b::2/64 dev eth1
+        - ip -6 route replace default via 2001:4b::1 dev eth1
+
     sflow-rt:
       kind: linux
       image: sflow/sflow-rt
@@ -85,8 +79,17 @@ topology:
       mgmt-ipv6: 2001:172:100:100::8
       ports:
         - 8008:8008
+        - 6343:6343/udp 
 
-
+    prometheus: 
+      kind: linux
+      image: prom/prometheus:v2.47.0 
+      mgmt-ipv4: 172.100.100.9
+      mgmt-ipv6: 2001:172:100:100::9
+      ports:
+        - "9090:9090"
+      binds:
+        - monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
@@ -95,4 +98,3 @@ topology:
     - endpoints: ["router4:eth2", "router1:eth2"]
     - endpoints: ["pc1:eth1", "router1:eth3"]
     - endpoints: ["pc2:eth1", "router4:eth3"]
-
