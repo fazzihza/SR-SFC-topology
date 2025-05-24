@@ -2,26 +2,23 @@
 
 echo "Router Init Script: Starting FRR, node_exporter, and hsflowd"
 
-if pgrep -x "watchfrr" > /dev/null ; then
-  echo "FRR (watchfrr) is already running."
-else
-  echo "Starting FRR services..."
-  rm -f /var/run/frr/*.pid /var/run/frr/watchfrr.pid
-  if [ -f /usr/lib/frr/frrinit.sh ]; then
-    echo "frrinit.sh found, but we will use docker-start for FRR."
-  fi
-fi
-
+echo "Starting node_exporter (pre-mounted)..."
 if [ -f /usr/local/bin/node_exporter ]; then
   if pgrep -x "node_exporter" > /dev/null ; then
     echo "node_exporter is already running."
   else
-    echo "Starting pre-mounted node_exporter..."
+    echo "Attempting to start pre-mounted node_exporter in background..."
     /usr/local/bin/node_exporter --web.listen-address=":9100" &
-    echo "node_exporter started."
+    echo "node_exporter start command issued."
+    sleep 1
+    if pgrep -x "node_exporter" > /dev/null ; then
+        echo "node_exporter process confirmed running."
+    else
+        echo "node_exporter process NOT confirmed running after start attempt."
+    fi
   fi
 else
-  echo "Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
+  echo "FATAL: Pre-mounted node_exporter binary not found at /usr/local/bin/node_exporter. Please check clab binds and host file path ./exporter_bin/node_exporter"
 fi
 
 HSFLOWD_START_SCRIPT="/usr/bin/hsflowd_start.sh"
@@ -37,7 +34,7 @@ if [ ! -z "${COLLECTOR}" ] && [ -f "$HSFLOWD_START_SCRIPT" ]; then
   fi
 else
   if [ -z "${COLLECTOR}" ]; then
-    echo "COLLECTOR environment variable is not set. hsflowd will not be started by this script."
+    echo "COLLECTOR environment variable is not set or empty. hsflowd will not be started by this script's logic."
   fi
   if [ ! -f "$HSFLOWD_START_SCRIPT" ]; then
     echo "$HSFLOWD_START_SCRIPT not found. Cannot start hsflowd using this method."
