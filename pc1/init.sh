@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Configuring IP for pc1..."
 ip addr add 10.0.0.1/24 dev eth1 || true

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "Attempting to install and run node_exporter on sflow-rt node."
 
