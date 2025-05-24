@@ -1,19 +1,6 @@
 #!/bin/bash
 
-if pgrep -x "watchfrr" > /dev/null
-then
-    echo "FRR (watchfrr) is already running."
-else
-    echo "Starting FRR services..."
-    rm -f /var/run/frr/*.pid
-    rm -f /var/run/frr/watchfrr.pid
-    if [ -f /usr/lib/frr/frrinit.sh ]; then
-      /usr/lib/frr/frrinit.sh start
-      echo "FRR services started via frrinit.sh."
-    else
-      echo "frrinit.sh not found."
-    fi
-fi
+echo "Attempting to install and run node_exporter on sflow-rt node."
 
 NODE_EXPORTER_VERSION="1.7.0"
 ARCH=$(uname -m)
@@ -68,5 +55,6 @@ else
   echo "node_exporter binary not found. Not starting exporter."
 fi
 
-echo "init.sh script finished. Container will keep running."
-tail -f /dev/null
+echo "init.sh script for sflow-rt finished. sflow-rt main process should keep container running."
+echo "If sflow-rt doesn't keep container alive, add 'tail -f /dev/null' here."
+sleep infinity

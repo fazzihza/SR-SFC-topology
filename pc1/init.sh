@@ -1,19 +1,11 @@
 #!/bin/bash
 
-if pgrep -x "watchfrr" > /dev/null
-then
-    echo "FRR (watchfrr) is already running."
-else
-    echo "Starting FRR services..."
-    rm -f /var/run/frr/*.pid
-    rm -f /var/run/frr/watchfrr.pid
-    if [ -f /usr/lib/frr/frrinit.sh ]; then
-      /usr/lib/frr/frrinit.sh start
-      echo "FRR services started via frrinit.sh."
-    else
-      echo "frrinit.sh not found."
-    fi
-fi
+echo "Configuring IP for pc1..."
+ip addr add 10.0.0.1/24 dev eth1 || true
+ip route replace default via 10.0.0.2 dev eth1 || true
+ip -6 addr add 2001:fa::2/64 dev eth1 || true
+ip -6 route replace default via 2001:fa::1 dev eth1 || true
+echo "IP configuration for pc1 finished."
 
 NODE_EXPORTER_VERSION="1.7.0"
 ARCH=$(uname -m)

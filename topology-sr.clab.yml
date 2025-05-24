@@ -60,6 +60,8 @@ topology:
         - ip route replace default via 10.0.0.2 dev eth1
         - ip -6 addr add 2001:fa::2/64 dev eth1
         - ip -6 route replace default via 2001:fa::1 dev eth1
+      binds:
+        - pc1/init.sh:/usr/local/bin/init.sh
 
     pc2:
       kind: linux
@@ -71,6 +73,9 @@ topology:
         - ip route replace default via 10.0.2.2 dev eth1
         - ip -6 addr add 2001:4b::2/64 dev eth1
         - ip -6 route replace default via 2001:4b::1 dev eth1
+      binds:
+        - pc2/init.sh:/usr/local/bin/init.sh
+      
 
     sflow-rt:
       kind: linux
@@ -80,6 +85,8 @@ topology:
       ports:
         - 8008:8008
         - 6343:6343/udp 
+      binds:
+        - sflow-rt/init.sh:/usr/local/bin/init.sh
 
     prometheus: 
       kind: linux
