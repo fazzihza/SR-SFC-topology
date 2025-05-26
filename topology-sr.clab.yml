@@ -22,8 +22,7 @@ topology:
         - router1/frr.conf:/etc/frr/frr.conf
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router1/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+     
     
     router2:
       kind: linux
@@ -35,8 +34,7 @@ topology:
         - router2/frr.conf:/etc/frr/frr.conf
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router2/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+   
 
     router3:
       kind: linux
@@ -48,8 +46,7 @@ topology:
         - router3/frr.conf:/etc/frr/frr.conf
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router3/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+      
 
     router4:
       kind: linux
@@ -61,8 +58,7 @@ topology:
         - router4/frr.conf:/etc/frr/frr.conf
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - router4/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+      
 
     pc1:
       kind: linux
