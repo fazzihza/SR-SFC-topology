@@ -121,7 +121,7 @@ topology:
       ports:
         - "3000:3000"
       binds:
-        - ./grafana_data:/var/lib/grafana 
+        - grafana-storage:/var/lib/grafana 
       env:
         GF_SECURITY_ADMIN_USER: "admin"
         GF_SECURITY_ADMIN_PASSWORD: "admin"
