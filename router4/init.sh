@@ -76,11 +76,14 @@ else
 fi
 
 FRR_START_SCRIPT="/usr/lib/frr/docker-start"
-echo "Now starting FRR as the main process using: $FRR_START_SCRIPT"
+echo "Now starting FRR in background using: $FRR_START_SCRIPT"
 if [ -f "$FRR_START_SCRIPT" ]; then
-  exec "$FRR_START_SCRIPT"
+  "$FRR_START_SCRIPT" &
+  echo "FRR started in background."
 else
   echo "ERROR: FRR start script $FRR_START_SCRIPT not found! FRR cannot start."
-  echo "Container will keep running via sleep to allow debugging."
-  sleep infinity
 fi
+
+# Tambahkan sleep infinity agar container tetap hidup
+echo "Init script finished. Container will stay alive."
+sleep infinity
