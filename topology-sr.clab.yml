@@ -123,8 +123,8 @@ topology:
       binds:
         - grafana-storage:/var/lib/grafana 
       env:
-        - GF_SECURITY_ADMIN_USER=admin
-        - GF_SECURITY_ADMIN_PASSWORD=admin
+        GF_SECURITY_ADMIN_USER: "admin"
+        GF_SECURITY_ADMIN_PASSWORD: "admin"
 
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
