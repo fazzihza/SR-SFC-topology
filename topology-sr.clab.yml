@@ -113,6 +113,19 @@ topology:
       binds:
         - monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
+    grafana:
+      kind: linux
+      image: grafana/grafana-oss
+      mgmt-ipv4: 172.100.100.10
+      mgmt-ipv6: 2001:172:100:100::10
+      ports:
+        - "3000:3000"
+      binds:
+        - grafana-storage:/var/lib/grafana 
+      environment:
+        - GF_SECURITY_ADMIN_USER=admin
+        - GF_SECURITY_ADMIN_PASSWORD=admin
+
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
     - endpoints: ["router2:eth2", "router3:eth2"]

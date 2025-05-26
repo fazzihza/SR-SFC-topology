@@ -1,8 +1,9 @@
-version: '3'
+version: '3.8' # Versi 3.8 atau lebih baru mendukung 'name' untuk external network dengan lebih baik
 
 services:
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana-oss # Menggunakan -oss untuk versi open source
+    container_name: grafana_srsfc # Memberi nama kontainer agar mudah diidentifikasi
     ports:
       - "3000:3000"
     volumes:
@@ -10,7 +11,13 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-
+    networks:
+      - clab_network # Nama referensi internal di docker-compose
 
 volumes:
-  grafana-storage:
+  grafana-storage: {} # Definisi volume
+
+networks:
+  clab_network: # Nama referensi internal
+    name: clab-srsfc-fixedips # NAMA JARINGAN CONTAINERLAB YANG SEBENARNYA
+    external: true # Menandakan bahwa jaringan ini dibuat di luar docker-compose ini
