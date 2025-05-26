@@ -120,8 +120,6 @@ topology:
       mgmt-ipv6: 2001:172:100:100::10
       ports:
         - "3000:3000"
-      binds:
-        - grafana-storage:/var/lib/grafana 
       env:
         GF_SECURITY_ADMIN_USER: "admin"
         GF_SECURITY_ADMIN_PASSWORD: "admin"
