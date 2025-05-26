@@ -72,8 +72,12 @@ topology:
       binds:
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - ./pc1/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+      exec:
+      - ip addr add 10.0.0.1/24 dev eth1
+      - ip route replace default via 10.0.0.2 dev eth1
+      - ip -6 addr add 2001:fa::2/64 dev eth1
+      - ip -6 route replace default via 2001:fa::1 dev eth1
+      
 
     pc2:
       kind: linux
@@ -83,8 +87,12 @@ topology:
       binds:
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
         - pc2/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
+      exec:
+      - ip addr add 10.0.2.1/24 dev eth1
+      - ip route replace default via 10.0.2.2 dev eth1
+      - ip -6 addr add 2001:4b::2/64 dev eth1
+      - ip -6 route replace default via 2001:4b::1 dev eth1
+      
       
 
     sflow-rt:
