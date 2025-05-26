@@ -93,7 +93,7 @@ topology:
 
     sflow-rt:
       kind: linux
-      image: sflow/sflow-rt
+      image: sflow/clab-sflow-rt
       mgmt-ipv4: 172.100.100.8
       mgmt-ipv6: 2001:172:100:100::8
       ports:

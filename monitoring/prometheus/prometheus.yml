@@ -9,3 +9,7 @@ scrape_configs:
           - '172.100.100.3:9100'
           - '172.100.100.4:9100'
           - '172.100.100.5:9100'
+  - job_name: 'sflow-rt-app'
+    metrics_path: /app/prometheus/metrics
+    static_configs:
+      - targets: ['172.100.100.8:8008']
