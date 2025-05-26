@@ -106,8 +106,6 @@ topology:
       binds:
         - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro # MOUNT PRE-DOWNLOADED
         - sflow-rt/init.sh:/usr/local/bin/init.sh
-      exec: 
-      - /usr/local/bin/init.sh
 
     prometheus: 
       kind: linux
