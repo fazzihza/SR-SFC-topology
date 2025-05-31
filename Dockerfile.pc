@@ -1,0 +1,12 @@
+FROM sflow/clab-iperf3:latest
+
+COPY ./exporter_bin/node_exporter /usr/local/bin/node_exporter
+RUN chmod +x /usr/local/bin/node_exporter
+
+COPY pc.init.sh /usr/local/bin/init.sh
+RUN chmod +x /usr/local/bin/init.sh
+
+# Image sflow/clab-iperf3 punya ENTRYPOINT ["iperf3"] CMD ["-s"]
+# Kita perlu menimpanya agar init.sh kita berjalan.
+ENTRYPOINT [] 
+CMD ["/usr/local/bin/init.sh"]

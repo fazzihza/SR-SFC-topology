@@ -1,0 +1,12 @@
+FROM sflow/prometheus:latest
+
+# HAPUS BAGIAN COPY NODE_EXPORTER
+# COPY ./exporter_bin/node_exporter /usr/local/bin/node_exporter
+# RUN chmod +x /usr/local/bin/node_exporter
+
+# Salin skrip init yang sudah disederhanakan (tanpa node_exporter)
+COPY sflowrt.init.sh /usr/local/bin/init.sh 
+RUN chmod +x /usr/local/bin/init.sh
+
+ENTRYPOINT []
+CMD ["/usr/local/bin/init.sh"]

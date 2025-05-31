@@ -14,71 +14,61 @@ topology:
   nodes:
     router1:
       kind: linux
-      image: sflow/clab-frr
+      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
-        - router1/daemons:/etc/frr/daemons
-        - router1/frr.conf:/etc/frr/frr.conf
-       # - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - router1/init.sh:/usr/local/bin/init.sh
-     
+        - ./router1/daemons:/etc/frr/daemons
+        - ./router1/frr.conf:/etc/frr/frr.conf
     
     router2:
       kind: linux
-      image: sflow/clab-frr
+      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
-        - router2/daemons:/etc/frr/daemons
-        - router2/frr.conf:/etc/frr/frr.conf
-        #- ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - router2/init.sh:/usr/local/bin/init.sh
-   
-
+        - ./router2/daemons:/etc/frr/daemons
+        - ./router2/frr.conf:/etc/frr/frr.conf
+    
     router3:
       kind: linux
-      image: sflow/clab-frr
+      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
-        - router3/daemons:/etc/frr/daemons
-        - router3/frr.conf:/etc/frr/frr.conf
-       # - ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - router3/init.sh:/usr/local/bin/init.sh
-      
-
+        - ./router3/daemons:/etc/frr/daemons
+        - ./router3/frr.conf:/etc/frr/frr.conf
+    
     router4:
       kind: linux
-      image: sflow/clab-frr
+      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
-        - router4/daemons:/etc/frr/daemons
-        - router4/frr.conf:/etc/frr/frr.conf
-        #- ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - router4/init.sh:/usr/local/bin/init.sh
-      
-
+        - ./router4/daemons:/etc/frr/daemons
+        - ./router4/frr.conf:/etc/frr/frr.conf
+    
     pc1:
       kind: linux
-      image: sflow/clab-iperf3
+      image: my-srsfc-pc:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
-      binds:
-        #- ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - ./pc1/init.sh:/usr/local/bin/init.sh
-      
-      
-
+      exec:
+        - ip addr add 10.0.0.1/24 dev eth1
+        - ip route replace default via 10.0.0.2 dev eth1
+        - ip -6 addr add 2001:fa::2/64 dev eth1
+        - ip -6 route replace default via 2001:fa::1 dev eth1
+    
     pc2:
       kind: linux
-      image: sflow/clab-iperf3
+      image: my-srsfc-pc:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
-      binds:
-        #- ./exporter_bin/node_exporter:/usr/local/bin/node_exporter:ro
-        - pc2/init.sh:/usr/local/bin/init.sh
+      exec:
+        - ip addr add 10.0.2.1/24 dev eth1
+        - ip route replace default via 10.0.2.2 dev eth1
+        - ip -6 addr add 2001:4b::2/64 dev eth1
+        - ip -6 route replace default via 2001:4b::1 dev eth1
      
       
       

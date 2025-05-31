@@ -1,0 +1,13 @@
+FROM sflow/clab-frr:latest
+
+# Salin binary node_exporter yang sudah Anda unduh dan ekstrak di host
+COPY ./exporter_bin/node_exporter /usr/local/bin/node_exporter
+RUN chmod +x /usr/local/bin/node_exporter
+
+# Salin skrip init kustom untuk router
+# Skrip ini akan menggantikan /usr/bin/init.sh bawaan image jika ada, atau menjadi CMD baru
+COPY router.init.sh /usr/local/bin/init.sh 
+RUN chmod +x /usr/local/bin/init.sh
+
+# Pastikan skrip init kustom kita yang dijalankan
+CMD ["/usr/local/bin/init.sh"]
