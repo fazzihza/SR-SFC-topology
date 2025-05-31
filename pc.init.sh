@@ -18,11 +18,12 @@ if [ -f "$NODE_EXPORTER_PATH" ]; then
     else
         echo "Node Exporter process NOT confirmed running after 1s check. Check Prometheus."
         # Jika ini terjadi, node_exporter mungkin crash setelah dimulai.
-        # Log 'docker logs' mungkin tidak menangkap error crash dari proses background.
     fi
   fi
 else
   echo "FATAL: node_exporter binary not found at $NODE_EXPORTER_PATH in the image."
 fi
 
-echo "PC
+# echo "PC Init script finished. Container will keep running via tail." # Baris echo ini ada di versi sebelumnya
+echo "PC Init script finished. Container will keep running." # Baris echo ini sedikit berbeda dari sebelumnya, tapi intinya sama
+tail -f /dev/null # <-- BARIS INI SANGAT PENTING untuk menjaga kontainer tetap hidup
