@@ -7,13 +7,13 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'containerlab-nodes' # Job untuk node_exporter dari semua node Anda
+  - job_name: 'containerlab-nodes' # Job untuk node_exporter dari router dan PC Anda
     static_configs:
       - targets:
-          # PENTING: Ganti alamat IP di bawah ini dengan ClusterIP Service
-          # yang SESUAI dari output 'microk8s kubectl get services -n c9s-srsfc' Anda
-          # untuk setiap node.
+          # GANTI dengan ClusterIP Service Kubernetes yang SESUAI untuk setiap node
           - '10.152.183.85:9100'   # Contoh untuk service router1 
           - '10.152.183.215:9100'  # Contoh untuk service router2
           - '10.152.183.117:9100'  # Contoh untuk service router3
           - '10.152.183.116:9100'  # Contoh untuk service router4
+          - '10.152.183.75:9100'   # Contoh untuk service pc1
+          - '10.152.183.103:9100'  # Contoh untuk service pc2
