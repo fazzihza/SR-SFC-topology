@@ -14,7 +14,7 @@ topology:
   nodes:
     router1:
       kind: linux
-      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
       binds:
@@ -23,7 +23,7 @@ topology:
     
     router2:
       kind: linux
-      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
       binds:
@@ -32,7 +32,7 @@ topology:
     
     router3:
       kind: linux
-      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
       binds:
@@ -41,7 +41,7 @@ topology:
     
     router4:
       kind: linux
-      image: my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       binds:
@@ -50,7 +50,7 @@ topology:
     
     pc1:
       kind: linux
-      image: my-srsfc-pc:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-pc:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
       exec:
@@ -61,7 +61,7 @@ topology:
     
     pc2:
       kind: linux
-      image: my-srsfc-pc:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-pc:latest # IMAGE KUSTOM ANDA
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
       exec:
