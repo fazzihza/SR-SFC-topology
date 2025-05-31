@@ -7,7 +7,7 @@ mgmt:
 topology:
   defaults:
     env:
-      COLLECTOR: 172.100.100.8 # IP sflow-rt
+      COLLECTOR: 10.152.183.121 # IP sflow-rt
       SAMPLING: 1000
       POLLING: 30
 
