@@ -4,6 +4,10 @@ echo "Memulai proses deployment..."
 start_time=$(date +%s%N) # Waktu mulai dalam nanoseconds
 
 # Deploy topologi Anda
+alias clabverter='sudo docker run --user $(id -u) \
+    -v $(pwd):/clabernetes/work --rm \
+    ghcr.io/srl-labs/clabernetes/clabverter'
+    
 clabverter --stdout --naming non-prefixed | \
 microk8s kubectl apply -f -
 
