@@ -2,7 +2,7 @@
 
 # --- PENTING: Ganti nilai ini dengan nama topologi Anda ---
 # Anda bisa menemukan nama ini di dalam file YAML topologi Anda di bawah metadata.name
-TOPOLOGY_NAME="topology-sr.clab.yml" # Ganti "srsfc" dengan nama topologi Anda yang sebenarnya
+TOPOLOGY_NAME="srsfc" # Ganti "srsfc" dengan nama topologi Anda yang sebenarnya
 
 echo "Memulai proses deployment untuk topologi: $TOPOLOGY_NAME..."
 start_time=$(date +%s%N) # Waktu mulai dalam nanoseconds
