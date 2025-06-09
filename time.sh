@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # --- PENTING: Ganti nilai ini jika nama topologi Anda berbeda ---
-# Nama ini harus sesuai dengan 'metadata.name' di file topology-sr.clab.yml Anda
+# Nama ini harus sesuai dengan 'metadata.name' di file YAML Anda
 TOPOLOGY_NAME="srsfc"
 
-# Kita definisikan namespace yang dibuat oleh Clabernetes untuk kemudahan
+# Definisikan namespace yang akan dibuat oleh Clabernetes
 NAMESPACE="c9s-$TOPOLOGY_NAME"
 
 echo "Memastikan tidak ada deployment lama..."
@@ -28,20 +28,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Beri jeda 5 detik untuk memberi Clabernetes waktu untuk mulai membuat pod
-echo "Memberi jeda 5 detik untuk Clabernetes operator..."
-sleep 5
-
-echo "Menunggu semua pod dalam topologi siap..."
-# Tunggu sampai semua pod dalam topologi siap, DENGAN MENENTUKAN NAMESPACE YANG BENAR
-microk8s kubectl wait --for=condition=Ready pod \
-  -l clabernetes.io/topology-name="$TOPOLOGY_NAME" \
+echo "Menunggu topologi untuk mencapai status 'Ready'..."
+# --- PERUBAHAN KRUSIAL ADA DI SINI ---
+# Kita sekarang menunggu kondisi 'TopologyReady' pada resource 'topology' itu sendiri.
+microk8s kubectl wait --for=condition=TopologyReady=True \
+  topology/"$TOPOLOGY_NAME" \
   -n "$NAMESPACE" \
   --timeout=15m
 
 # Periksa apakah perintah wait berhasil
 if [ $? -ne 0 ]; then
-    echo "Error: Waktu tunggu habis atau pod tidak ditemukan. Periksa nama topologi dan namespace."
+    echo "Error: Waktu tunggu habis. Topologi tidak mencapai status 'Ready'."
     exit 1
 fi
 
