@@ -3,17 +3,21 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus' # Job untuk memantau Prometheus itu sendiri
+  - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090'] # Ini mengacu pada Prometheus pod itu sendiri
+      - targets: ['localhost:9090']
 
-  - job_name: 'containerlab-nodes' # Job untuk node_exporter dari semua node Anda
+  - job_name: 'containerlab-nodes'
     static_configs:
       - targets:
-          # Menggunakan CLUSTER-IP dari service yang sesuai
-          - '10.152.183.200:9100'  # router1 service
-          - '10.152.183.55:9100'   # router2 service
-          - '10.152.183.109:9100'  # router3 service
-          - '10.152.183.207:9100'  # router4 service
-          - '10.152.183.229:9100'  # pc1 service
-          - '10.152.183.43:9100'   # pc2 service
+          - '10.152.183.153:9100'
+          - '10.152.183.62:9100'
+          - '10.152.183.239:9100'
+          - '10.152.183.98:9100'
+          - '10.152.183.230:9100'
+          - '10.152.183.38:9100'
+
+  - job_name: 'sflow-rt-app'
+    metrics_path: /app/prometheus/metrics
+    static_configs:
+      - targets: ['10.152.183.250:8008']
