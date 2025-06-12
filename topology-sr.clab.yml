@@ -7,16 +7,18 @@ mgmt:
 topology:
   defaults:
     env:
-      COLLECTOR: 10.152.183.121 # IP sflow-rt
+      COLLECTOR: 10.152.183.121
       SAMPLING: 1000
       POLLING: 30
 
   nodes:
     router1:
       kind: linux
-      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
+      node-selector:
+        hostgroup: groupA
       ports:
       - "9100:9100/tcp"
       binds:
@@ -25,9 +27,11 @@ topology:
     
     router2:
       kind: linux
-      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
+      node-selector:
+        hostgroup: groupA
       ports:
       - "9100:9100/tcp"
       binds:
@@ -36,9 +40,11 @@ topology:
     
     router3:
       kind: linux
-      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
+      node-selector:
+        hostgroup: groupB
       ports:
       - "9100:9100/tcp"
       binds:
@@ -47,9 +53,10 @@ topology:
     
     router4:
       kind: linux
-      image: fazzaihza/my-srsfc-router:latest # IMAGE KUSTOM ANDA
-      mgmt-ipv4: 172.100.100.5
+      image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv6: 2001:172:100:100::5
+      node-selector:
+        hostgroup: groupB
       ports:
       - "9100:9100/tcp"
       binds:
@@ -58,9 +65,11 @@ topology:
     
     pc1:
       kind: linux
-      image: fazzaihza/my-srsfc-pc:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-pc:latest 
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
+      node-selector:
+        hostgroup: groupA
       ports:
       - "9100:9100/tcp"
       exec:
@@ -71,9 +80,11 @@ topology:
     
     pc2:
       kind: linux
-      image: fazzaihza/my-srsfc-pc:latest # IMAGE KUSTOM ANDA
+      image: fazzaihza/my-srsfc-pc:latest 
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
+      node-selector:
+        hostgroup: groupB
       ports:
       - "9100:9100/tcp"
       exec:
