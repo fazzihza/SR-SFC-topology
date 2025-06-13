@@ -48,6 +48,7 @@ topology:
     router4:
       kind: linux
       image: fazzaihza/my-srsfc-router:latest 
+      mgmt-ipv4: 172.100.100.5
       mgmt-ipv6: 2001:172:100:100::5
       ports:
         - "9100:9100/tcp"
