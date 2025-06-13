@@ -17,7 +17,6 @@ topology:
       image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.2
       mgmt-ipv6: 2001:172:100:100::2
-      node-name: testbed-node1
       ports:
       - "9100:9100/tcp"
       binds:
@@ -29,7 +28,6 @@ topology:
       image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.3
       mgmt-ipv6: 2001:172:100:100::3
-      node-name: testbed-node1
       ports:
       - "9100:9100/tcp"
       binds:
@@ -41,7 +39,6 @@ topology:
       image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv4: 172.100.100.4
       mgmt-ipv6: 2001:172:100:100::4
-      node-name: testbed-node7
       ports:
       - "9100:9100/tcp"
       binds:
@@ -52,7 +49,6 @@ topology:
       kind: linux
       image: fazzaihza/my-srsfc-router:latest 
       mgmt-ipv6: 2001:172:100:100::5
-      node-name: testbed-node7
       ports:
       - "9100:9100/tcp"
       binds:
@@ -64,7 +60,6 @@ topology:
       image: fazzaihza/my-srsfc-pc:latest 
       mgmt-ipv4: 172.100.100.6
       mgmt-ipv6: 2001:172:100:100::6
-      node-name: testbed-node1
       ports:
       - "9100:9100/tcp"
       exec:
@@ -78,7 +73,6 @@ topology:
       image: fazzaihza/my-srsfc-pc:latest 
       mgmt-ipv4: 172.100.100.7
       mgmt-ipv6: 2001:172:100:100::7
-      node-name: testbed-node7
       ports:
       - "9100:9100/tcp"
       exec:
