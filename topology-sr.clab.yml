@@ -7,11 +7,6 @@ mgmt:
 
 topology:
   defaults:
-    # Perintah ini akan dijalankan di setiap node router untuk memulai FRR
-    pull: never
-    exec:
-      - /etc/init.d/frr start
-
   nodes:
     # === SPINE ROUTERS (4 buah) ===
     router1:
