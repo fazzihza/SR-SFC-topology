@@ -21,6 +21,8 @@ topology:
       binds:
         - ./router1/daemons:/etc/frr/daemons
         - ./router1/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router2:
       kind: linux
@@ -31,6 +33,8 @@ topology:
       binds:
         - ./router2/daemons:/etc/frr/daemons
         - ./router2/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router3:
       kind: linux
@@ -41,6 +45,8 @@ topology:
       binds:
         - ./router3/daemons:/etc/frr/daemons
         - ./router3/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router4:
       kind: linux
@@ -51,6 +57,8 @@ topology:
       binds:
         - ./router4/daemons:/etc/frr/daemons
         - ./router4/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router5:
       kind: linux
@@ -61,6 +69,8 @@ topology:
       binds:
         - ./router5/daemons:/etc/frr/daemons
         - ./router5/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router6:
       kind: linux
@@ -71,6 +81,8 @@ topology:
       binds:
         - ./router6/daemons:/etc/frr/daemons
         - ./router6/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router7:
       kind: linux
@@ -81,6 +93,8 @@ topology:
       binds:
         - ./router7/daemons:/etc/frr/daemons
         - ./router7/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router8:
       kind: linux
@@ -91,6 +105,8 @@ topology:
       binds:
         - ./router8/daemons:/etc/frr/daemons
         - ./router8/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router9:
       kind: linux
@@ -101,6 +117,8 @@ topology:
       binds:
         - ./router9/daemons:/etc/frr/daemons
         - ./router9/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router10:
       kind: linux
@@ -111,6 +129,8 @@ topology:
       binds:
         - ./router10/daemons:/etc/frr/daemons
         - ./router10/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router11:
       kind: linux
@@ -121,6 +141,8 @@ topology:
       binds:
         - ./router11/daemons:/etc/frr/daemons
         - ./router11/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router12:
       kind: linux
@@ -131,6 +153,8 @@ topology:
       binds:
         - ./router12/daemons:/etc/frr/daemons
         - ./router12/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router13:
       kind: linux
@@ -141,6 +165,8 @@ topology:
       binds:
         - ./router13/daemons:/etc/frr/daemons
         - ./router13/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router14:
       kind: linux
@@ -151,6 +177,8 @@ topology:
       binds:
         - ./router14/daemons:/etc/frr/daemons
         - ./router14/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router15:
       kind: linux
@@ -161,6 +189,8 @@ topology:
       binds:
         - ./router15/daemons:/etc/frr/daemons
         - ./router15/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router16:
       kind: linux
@@ -171,6 +201,8 @@ topology:
       binds:
         - ./router16/daemons:/etc/frr/daemons
         - ./router16/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router17:
       kind: linux
@@ -181,6 +213,8 @@ topology:
       binds:
         - ./router17/daemons:/etc/frr/daemons
         - ./router17/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router18:
       kind: linux
@@ -191,6 +225,8 @@ topology:
       binds:
         - ./router18/daemons:/etc/frr/daemons
         - ./router18/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router19:
       kind: linux
@@ -201,6 +237,8 @@ topology:
       binds:
         - ./router19/daemons:/etc/frr/daemons
         - ./router19/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     router20:
       kind: linux
@@ -211,6 +249,8 @@ topology:
       binds:
         - ./router20/daemons:/etc/frr/daemons
         - ./router20/frr.conf:/etc/frr/frr.conf
+      exec:
+        - /etc/init.d/frr start
 
     pc1:
       kind: linux
