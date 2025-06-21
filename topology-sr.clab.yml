@@ -1,10 +1,11 @@
-apiVersion: clabernetes.containerlab.dev/v1alpha1
-kind: Topology
-metadata:
-  name: srv6-mesh
-  namespace: c9s-srv6-mesh
+name: srv6-mesh
+
+mgmt:
+  network: fixedips
+  ipv4-subnet: 172.100.100.0/24
+  ipv6-subnet: 2001:172:100:100::/80
   
-  topology:
+topology:
     nodes:
       # --- SPINE ROUTERS ---
       router1:
