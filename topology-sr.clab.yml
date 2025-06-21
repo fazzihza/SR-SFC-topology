@@ -235,27 +235,27 @@ topology:
           command: ["/usr/lib/frr/frrinit.sh", "start"]
 
       # --- CLIENT PCs (tidak perlu diubah) ---
-      pc1:
-        kind: linux
-        image: sflow/clab-iperf3
-        exec:
-          - ip addr add 10.0.0.1/24 dev eth1
-          - ip route replace default via 10.0.0.2 dev eth1
-          - ip -6 addr add 2001:fa::2/64 dev eth1
-          - ip -6 route replace default via 2001:fa::1 dev eth1
-      pc2:
-        kind: linux
-        image: sflow/clab-iperf3
-        exec:
-          - ip addr add 10.0.2.1/24 dev eth1
-          - ip route replace default via 10.0.2.2 dev eth1
-          - ip -6 addr add 2001:4b::2/64 dev eth1
-          - ip -6 route replace default via 2001:4b::1 dev eth1
+        pc1:
+          kind: linux
+          image: sflow/clab-iperf3
+          exec:
+            - ip addr add 10.0.0.1/24 dev eth1
+            - ip route replace default via 10.0.0.2 dev eth1
+            - ip -6 addr add 2001:fa::2/64 dev eth1
+            - ip -6 route replace default via 2001:fa::1 dev eth1
+        pc2:
+          kind: linux
+          image: sflow/clab-iperf3
+          exec:
+            - ip addr add 10.0.2.1/24 dev eth1
+            - ip route replace default via 10.0.2.2 dev eth1
+            - ip -6 addr add 2001:4b::2/64 dev eth1
+            - ip -6 route replace default via 2001:4b::1 dev eth1
 
-      # --- MONITORING STACK (tidak perlu diubah) ---
-      sflow-rt: { kind: linux, image: sflow/prometheus, ports: [ "8008:8008", "6343:6343/udp" ] }
-      prometheus: { kind: linux, image: prom/prometheus:v2.47.0, ports: [ "9090:9090" ], binds: [ "./prometheus_ne.yml:/etc/prometheus/prometheus.yml" ] }
-      grafana: { kind: linux, image: grafana/grafana-oss, ports: [ "3000:3000" ], env: { GF_SECURITY_ADMIN_USER: "admin", GF_SECURITY_ADMIN_PASSWORD: "admin" } }
+        # --- MONITORING STACK (tidak perlu diubah) ---
+        sflow-rt: { kind: linux, image: sflow/prometheus, ports: [ "8008:8008", "6343:6343/udp" ] }
+        prometheus: { kind: linux, image: prom/prometheus:v2.47.0, ports: [ "9090:9090" ], binds: [ "./prometheus_ne.yml:/etc/prometheus/prometheus.yml" ] }
+        grafana: { kind: linux, image: grafana/grafana-oss, ports: [ "3000:3000" ], env: { GF_SECURITY_ADMIN_USER: "admin", GF_SECURITY_ADMIN_PASSWORD: "admin" } }
       
       links:
     # === LEAF-SPINE CONNECTIONS (16 Leaves * 4 Spines = 64 Links) ===
