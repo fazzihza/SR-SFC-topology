@@ -267,28 +267,28 @@ topology:
         GF_SECURITY_ADMIN_PASSWORD: "admin"
 
     links:
-    - endpoints: ["router1:eth1", "router2:eth1"]
-    - endpoints: ["router2:eth2", "router3:eth1"]
-    - endpoints: ["router3:eth2", "router4:eth1"]
-    - endpoints: ["router4:eth2", "router5:eth1"]
-    - endpoints: ["router5:eth2", "router6:eth1"]
-    - endpoints: ["router6:eth2", "router7:eth1"]
-    - endpoints: ["router7:eth2", "router8:eth1"]
-    - endpoints: ["router8:eth2", "router9:eth1"]
-    - endpoints: ["router9:eth2", "router10:eth1"]
-    - endpoints: ["router10:eth2", "router11:eth1"]
-    - endpoints: ["router11:eth2", "router12:eth1"]
-    - endpoints: ["router12:eth2", "router13:eth1"]
-    - endpoints: ["router13:eth2", "router14:eth1"]
-    - endpoints: ["router14:eth2", "router15:eth1"]
-    - endpoints: ["router15:eth2", "router16:eth1"]
-    - endpoints: ["router16:eth2", "router17:eth1"]
-    - endpoints: ["router17:eth2", "router18:eth1"]
-    - endpoints: ["router18:eth2", "router19:eth1"]
-    - endpoints: ["router19:eth2", "router20:eth1"]
-    - endpoints: ["router20:eth2", "router1:eth2"]   # Ring back to router1
+      - endpoints: ["router1:eth1", "router2:eth1"]
+      - endpoints: ["router2:eth2", "router3:eth1"]
+      - endpoints: ["router3:eth2", "router4:eth1"]
+      - endpoints: ["router4:eth2", "router5:eth1"]
+      - endpoints: ["router5:eth2", "router6:eth1"]
+      - endpoints: ["router6:eth2", "router7:eth1"]
+      - endpoints: ["router7:eth2", "router8:eth1"]
+      - endpoints: ["router8:eth2", "router9:eth1"]
+      - endpoints: ["router9:eth2", "router10:eth1"]
+      - endpoints: ["router10:eth2", "router11:eth1"]
+      - endpoints: ["router11:eth2", "router12:eth1"]
+      - endpoints: ["router12:eth2", "router13:eth1"]
+      - endpoints: ["router13:eth2", "router14:eth1"]
+      - endpoints: ["router14:eth2", "router15:eth1"]
+      - endpoints: ["router15:eth2", "router16:eth1"]
+      - endpoints: ["router16:eth2", "router17:eth1"]
+      - endpoints: ["router17:eth2", "router18:eth1"]
+      - endpoints: ["router18:eth2", "router19:eth1"]
+      - endpoints: ["router19:eth2", "router20:eth1"]
+      - endpoints: ["router20:eth2", "router1:eth2"]   # Ring back to router1
 
-    # Client connections
-    - endpoints: ["pc1:eth1", "router1:eth3"]
-    - endpoints: ["pc2:eth1", "router20:eth3"]
+      # Client connections
+      - endpoints: ["pc1:eth1", "router1:eth3"]
+      - endpoints: ["pc2:eth1", "router20:eth3"]
 
