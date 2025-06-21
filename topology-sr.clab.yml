@@ -3,11 +3,6 @@ kind: Topology
 metadata:
   name: srv6-mesh
   namespace: c9s-srv6-mesh
-spec:
-  # Opsi ini untuk mengatasi rate limit Docker Hub (tetap diperlukan)
-  imagePull:
-    secrets:
-      - my-docker-hub-secret
   
   topology:
     nodes:
