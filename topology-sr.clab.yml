@@ -22,6 +22,9 @@ topology:
       binds:
         - ./router1/frr.conf:/etc/frr/frr.conf
         - ./router1/daemons:/etc/frr/daemons
+        - ./router1/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router2:
       kind: linux
       image: sflow/clab-frr
@@ -30,6 +33,9 @@ topology:
       binds:
         - ./router2/frr.conf:/etc/frr/frr.conf
         - ./router2/daemons:/etc/frr/daemons
+        - ./router2/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router3:
       kind: linux
       image: sflow/clab-frr
@@ -38,6 +44,9 @@ topology:
       binds:
         - ./router3/frr.conf:/etc/frr/frr.conf
         - ./router3/daemons:/etc/frr/daemons
+        - ./router3/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router4:
       kind: linux
       image: sflow/clab-frr
@@ -46,6 +55,9 @@ topology:
       binds:
         - ./router4/frr.conf:/etc/frr/frr.conf
         - ./router4/daemons:/etc/frr/daemons
+        - ./router4/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
 
     # === LEAF ROUTERS (16 buah) ===
     router5:
@@ -56,6 +68,9 @@ topology:
       binds:
         - ./router5/frr.conf:/etc/frr/frr.conf
         - ./router5/daemons:/etc/frr/daemons
+        - ./router5/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router6:
       kind: linux
       image: sflow/clab-frr
@@ -64,6 +79,9 @@ topology:
       binds:
         - ./router6/frr.conf:/etc/frr/frr.conf
         - ./router6/daemons:/etc/frr/daemons
+        - ./router6/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router7:
       kind: linux
       image: sflow/clab-frr
@@ -72,6 +90,9 @@ topology:
       binds:
         - ./router7/frr.conf:/etc/frr/frr.conf
         - ./router7/daemons:/etc/frr/daemons
+        - ./router7/init.sh:/etc/frr/init.sh
+      exec:
+        - /etc/frr/init.sh
     router8:
       kind: linux
       image: sflow/clab-frr
@@ -80,6 +101,9 @@ topology:
       binds:
         - ./router8/frr.conf:/etc/frr/frr.conf
         - ./router8/daemons:/etc/frr/daemons
+        - ./router8/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router9:
       kind: linux
       image: sflow/clab-frr
@@ -88,6 +112,9 @@ topology:
       binds:
         - ./router9/frr.conf:/etc/frr/frr.conf
         - ./router9/daemons:/etc/frr/daemons
+        - ./router9/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router10:
       kind: linux
       image: sflow/clab-frr
@@ -96,6 +123,9 @@ topology:
       binds:
         - ./router10/frr.conf:/etc/frr/frr.conf
         - ./router10/daemons:/etc/frr/daemons
+        - ./router10/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router11:
       kind: linux
       image: sflow/clab-frr
@@ -104,6 +134,9 @@ topology:
       binds:
         - ./router11/frr.conf:/etc/frr/frr.conf
         - ./router11/daemons:/etc/frr/daemons
+        - ./router11/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router12:
       kind: linux
       image: sflow/clab-frr
@@ -112,6 +145,9 @@ topology:
       binds:
         - ./router12/frr.conf:/etc/frr/frr.conf
         - ./router12/daemons:/etc/frr/daemons
+        - ./router12/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router13:
       kind: linux
       image: sflow/clab-frr
@@ -120,6 +156,9 @@ topology:
       binds:
         - ./router13/frr.conf:/etc/frr/frr.conf
         - ./router13/daemons:/etc/frr/daemons
+        - ./router13/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router14:
       kind: linux
       image: sflow/clab-frr
@@ -128,6 +167,9 @@ topology:
       binds:
         - ./router14/frr.conf:/etc/frr/frr.conf
         - ./router14/daemons:/etc/frr/daemons
+        - ./router14/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router15:
       kind: linux
       image: sflow/clab-frr
@@ -136,6 +178,9 @@ topology:
       binds:
         - ./router15/frr.conf:/etc/frr/frr.conf
         - ./router15/daemons:/etc/frr/daemons
+        - ./router15/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router16:
       kind: linux
       image: sflow/clab-frr
@@ -144,6 +189,9 @@ topology:
       binds:
         - ./router16/frr.conf:/etc/frr/frr.conf
         - ./router16/daemons:/etc/frr/daemons
+        - ./router16/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router17:
       kind: linux
       image: sflow/clab-frr
@@ -152,6 +200,9 @@ topology:
       binds:
         - ./router17/frr.conf:/etc/frr/frr.conf
         - ./router17/daemons:/etc/frr/daemons
+        - ./router17/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router18:
       kind: linux
       image: sflow/clab-frr
@@ -160,6 +211,9 @@ topology:
       binds:
         - ./router18/frr.conf:/etc/frr/frr.conf
         - ./router18/daemons:/etc/frr/daemons
+        - ./router18/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router19:
       kind: linux
       image: sflow/clab-frr
@@ -168,6 +222,9 @@ topology:
       binds:
         - ./router19/frr.conf:/etc/frr/frr.conf
         - ./router19/daemons:/etc/frr/daemons
+        - ./router19/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
     router20:
       kind: linux
       image: sflow/clab-frr
@@ -176,6 +233,9 @@ topology:
       binds:
         - ./router20/frr.conf:/etc/frr/frr.conf
         - ./router20/daemons:/etc/frr/daemons
+        - ./router20/init.sh:/etc/frr/init.sh
+      exec:
+          - /etc/frr/init.sh
 
     # === CLIENT PCs ===
     pc1:
