@@ -1,4 +1,5 @@
-name: srv6
+name: srv6-mesh
+
 mgmt:
   network: fixedips
   ipv4-subnet: 172.100.100.0/24
@@ -6,258 +7,44 @@ mgmt:
 
 topology:
   defaults:
-    env:
-      COLLECTOR: 172.100.100.8
-      SAMPLING: 1000
-      POLLING: 30
+    binds:
+      # Mounts the frr.conf and daemons file for each router
+      - ./router{{.Node.ShortName}}/frr.conf:/etc/frr/frr.conf
+      - ./router{{.Node.ShortName}}/daemons:/etc/frr/daemons
+    exec:
+      # Automatically starts the FRR service inside the container on boot
+      - /etc/init.d/frr start
 
   nodes:
-    router1:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.2
-      mgmt-ipv6: 2001:172:100:100::2
-      ports: ["9101:9100/tcp"]
-      binds:
-        - ./router1/daemons:/etc/frr/daemons
-        - ./router1/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
+    # === SPINE ROUTERS (4 buah) ===
+    router1: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.2 }
+    router2: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.3 }
+    router3: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.4 }
+    router4: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.5 }
 
-    router2:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.3
-      mgmt-ipv6: 2001:172:100:100::3
-      ports: ["9102:9100/tcp"]
-      binds:
-        - ./router2/daemons:/etc/frr/daemons
-        - ./router2/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
+    # === LEAF ROUTERS (16 buah) ===
+    router5:  { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.6 }
+    router6:  { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.7 }
+    router7:  { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.8 }
+    router8:  { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.9 }
+    router9:  { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.10 }
+    router10: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.11 }
+    router11: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.12 }
+    router12: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.13 }
+    router13: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.14 }
+    router14: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.15 }
+    router15: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.16 }
+    router16: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.17 }
+    router17: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.18 }
+    router18: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.19 }
+    router19: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.20 }
+    router20: { kind: linux, image: sflow/clab-frr, mgmt-ipv4: 172.100.100.21 }
 
-    router3:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.4
-      mgmt-ipv6: 2001:172:100:100::4
-      ports: ["9103:9100/tcp"]
-      binds:
-        - ./router3/daemons:/etc/frr/daemons
-        - ./router3/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router4:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.5
-      mgmt-ipv6: 2001:172:100:100::5
-      ports: ["9104:9100/tcp"]
-      binds:
-        - ./router4/daemons:/etc/frr/daemons
-        - ./router4/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router5:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.6
-      mgmt-ipv6: 2001:172:100:100::6
-      ports: ["9105:9100/tcp"]
-      binds:
-        - ./router5/daemons:/etc/frr/daemons
-        - ./router5/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router6:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.7
-      mgmt-ipv6: 2001:172:100:100::7
-      ports: ["9106:9100/tcp"]
-      binds:
-        - ./router6/daemons:/etc/frr/daemons
-        - ./router6/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router7:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.8
-      mgmt-ipv6: 2001:172:100:100::8
-      ports: ["9107:9100/tcp"]
-      binds:
-        - ./router7/daemons:/etc/frr/daemons
-        - ./router7/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router8:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.9
-      mgmt-ipv6: 2001:172:100:100::9
-      ports: ["9108:9100/tcp"]
-      binds:
-        - ./router8/daemons:/etc/frr/daemons
-        - ./router8/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router9:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.10
-      mgmt-ipv6: 2001:172:100:100::10
-      ports: ["9109:9100/tcp"]
-      binds:
-        - ./router9/daemons:/etc/frr/daemons
-        - ./router9/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router10:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.11
-      mgmt-ipv6: 2001:172:100:100::11
-      ports: ["9110:9100/tcp"]
-      binds:
-        - ./router10/daemons:/etc/frr/daemons
-        - ./router10/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router11:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.12
-      mgmt-ipv6: 2001:172:100:100::12
-      ports: ["9111:9100/tcp"]
-      binds:
-        - ./router11/daemons:/etc/frr/daemons
-        - ./router11/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router12:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.13
-      mgmt-ipv6: 2001:172:100:100::13
-      ports: ["9112:9100/tcp"]
-      binds:
-        - ./router12/daemons:/etc/frr/daemons
-        - ./router12/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router13:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.14
-      mgmt-ipv6: 2001:172:100:100::14
-      ports: ["9113:9100/tcp"]
-      binds:
-        - ./router13/daemons:/etc/frr/daemons
-        - ./router13/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router14:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.15
-      mgmt-ipv6: 2001:172:100:100::15
-      ports: ["9114:9100/tcp"]
-      binds:
-        - ./router14/daemons:/etc/frr/daemons
-        - ./router14/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router15:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.16
-      mgmt-ipv6: 2001:172:100:100::16
-      ports: ["9115:9100/tcp"]
-      binds:
-        - ./router15/daemons:/etc/frr/daemons
-        - ./router15/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router16:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.17
-      mgmt-ipv6: 2001:172:100:100::17
-      ports: ["9116:9100/tcp"]
-      binds:
-        - ./router16/daemons:/etc/frr/daemons
-        - ./router16/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router17:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.18
-      mgmt-ipv6: 2001:172:100:100::18
-      ports: ["9117:9100/tcp"]
-      binds:
-        - ./router17/daemons:/etc/frr/daemons
-        - ./router17/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router18:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.19
-      mgmt-ipv6: 2001:172:100:100::19
-      ports: ["9118:9100/tcp"]
-      binds:
-        - ./router18/daemons:/etc/frr/daemons
-        - ./router18/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router19:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.20
-      mgmt-ipv6: 2001:172:100:100::20
-      ports: ["9119:9100/tcp"]
-      binds:
-        - ./router19/daemons:/etc/frr/daemons
-        - ./router19/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
-    router20:
-      kind: linux
-      image: sflow/clab-frr
-      mgmt-ipv4: 172.100.100.21
-      mgmt-ipv6: 2001:172:100:100::21
-      ports: ["9120:9100/tcp"]
-      binds:
-        - ./router20/daemons:/etc/frr/daemons
-        - ./router20/frr.conf:/etc/frr/frr.conf
-      exec:
-        - /etc/init.d/frr start
-
+    # === CLIENT PCs ===
     pc1:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.22
-      mgmt-ipv6: 2001:172:100:100::22
-      ports: ["9201:9100/tcp"]
       exec:
         - ip addr add 10.0.0.1/24 dev eth1
         - ip route replace default via 10.0.0.2 dev eth1
@@ -268,65 +55,104 @@ topology:
       kind: linux
       image: sflow/clab-iperf3
       mgmt-ipv4: 172.100.100.23
-      mgmt-ipv6: 2001:172:100:100::23
-      ports: ["9202:9100/tcp"]
       exec:
         - ip addr add 10.0.2.1/24 dev eth1
         - ip route replace default via 10.0.2.2 dev eth1
         - ip -6 addr add 2001:4b::2/64 dev eth1
         - ip -6 route replace default via 2001:4b::1 dev eth1
-
+    
+    # === MONITORING STACK ===
     sflow-rt:
       kind: linux
       image: sflow/prometheus
       mgmt-ipv4: 172.100.100.24
-      mgmt-ipv6: 2001:172:100:100::24
-      ports:
-        - 8008:8008
-        - 6343:6343/udp
-
+      ports: [ "8008:8008", "6343:6343/udp" ]
     prometheus:
       kind: linux
       image: prom/prometheus:v2.47.0
       mgmt-ipv4: 172.100.100.25
-      mgmt-ipv6: 2001:172:100:100::25
-      ports:
-        - "9090:9090"
-      binds:
-        - ./prometheus_ne.yml:/etc/prometheus/prometheus.yml
-
+      ports: [ "9090:9090" ]
+      binds: [ "./prometheus_ne.yml:/etc/prometheus/prometheus.yml" ]
     grafana:
       kind: linux
       image: grafana/grafana-oss
       mgmt-ipv4: 172.100.100.26
-      mgmt-ipv6: 2001:172:100:100::26
-      ports:
-        - "3000:3000"
+      ports: [ "3000:3000" ]
       env:
         GF_SECURITY_ADMIN_USER: "admin"
         GF_SECURITY_ADMIN_PASSWORD: "admin"
 
   links:
-    - endpoints: ["router1:eth1", "router2:eth1"]
-    - endpoints: ["router2:eth2", "router3:eth1"]
-    - endpoints: ["router3:eth2", "router4:eth1"]
-    - endpoints: ["router4:eth2", "router5:eth1"]
-    - endpoints: ["router5:eth2", "router6:eth1"]
-    - endpoints: ["router6:eth2", "router7:eth1"]
-    - endpoints: ["router7:eth2", "router8:eth1"]
-    - endpoints: ["router8:eth2", "router9:eth1"]
-    - endpoints: ["router9:eth2", "router10:eth1"]
-    - endpoints: ["router10:eth2", "router11:eth1"]
-    - endpoints: ["router11:eth2", "router12:eth1"]
-    - endpoints: ["router12:eth2", "router13:eth1"]
-    - endpoints: ["router13:eth2", "router14:eth1"]
-    - endpoints: ["router14:eth2", "router15:eth1"]
-    - endpoints: ["router15:eth2", "router16:eth1"]
-    - endpoints: ["router16:eth2", "router17:eth1"]
-    - endpoints: ["router17:eth2", "router18:eth1"]
-    - endpoints: ["router18:eth2", "router19:eth1"]
-    - endpoints: ["router19:eth2", "router20:eth1"]
-    - endpoints: ["router20:eth2", "router1:eth2"]
-    - endpoints: ["pc1:eth1", "router1:eth3"]
-    - endpoints: ["pc2:eth1", "router20:eth3"]
+    # === LEAF-SPINE CONNECTIONS (16 Leaves * 4 Spines = 64 Links) ===
+    # --- Connections to Spine1 (router1) ---
+    - endpoints: ["router1:eth1", "router5:eth1"]
+    - endpoints: ["router1:eth2", "router6:eth1"]
+    - endpoints: ["router1:eth3", "router7:eth1"]
+    - endpoints: ["router1:eth4", "router8:eth1"]
+    - endpoints: ["router1:eth5", "router9:eth1"]
+    - endpoints: ["router1:eth6", "router10:eth1"]
+    - endpoints: ["router1:eth7", "router11:eth1"]
+    - endpoints: ["router1:eth8", "router12:eth1"]
+    - endpoints: ["router1:eth9", "router13:eth1"]
+    - endpoints: ["router1:eth10", "router14:eth1"]
+    - endpoints: ["router1:eth11", "router15:eth1"]
+    - endpoints: ["router1:eth12", "router16:eth1"]
+    - endpoints: ["router1:eth13", "router17:eth1"]
+    - endpoints: ["router1:eth14", "router18:eth1"]
+    - endpoints: ["router1:eth15", "router19:eth1"]
+    - endpoints: ["router1:eth16", "router20:eth1"]
+    # --- Connections to Spine2 (router2) ---
+    - endpoints: ["router2:eth1", "router5:eth2"]
+    - endpoints: ["router2:eth2", "router6:eth2"]
+    - endpoints: ["router2:eth3", "router7:eth2"]
+    - endpoints: ["router2:eth4", "router8:eth2"]
+    - endpoints: ["router2:eth5", "router9:eth2"]
+    - endpoints: ["router2:eth6", "router10:eth2"]
+    - endpoints: ["router2:eth7", "router11:eth2"]
+    - endpoints: ["router2:eth8", "router12:eth2"]
+    - endpoints: ["router2:eth9", "router13:eth2"]
+    - endpoints: ["router2:eth10", "router14:eth2"]
+    - endpoints: ["router2:eth11", "router15:eth2"]
+    - endpoints: ["router2:eth12", "router16:eth2"]
+    - endpoints: ["router2:eth13", "router17:eth2"]
+    - endpoints: ["router2:eth14", "router18:eth2"]
+    - endpoints: ["router2:eth15", "router19:eth2"]
+    - endpoints: ["router2:eth16", "router20:eth2"]
+    # --- Connections to Spine3 (router3) ---
+    - endpoints: ["router3:eth1", "router5:eth3"]
+    - endpoints: ["router3:eth2", "router6:eth3"]
+    - endpoints: ["router3:eth3", "router7:eth3"]
+    - endpoints: ["router3:eth4", "router8:eth3"]
+    - endpoints: ["router3:eth5", "router9:eth3"]
+    - endpoints: ["router3:eth6", "router10:eth3"]
+    - endpoints: ["router3:eth7", "router11:eth3"]
+    - endpoints: ["router3:eth8", "router12:eth3"]
+    - endpoints: ["router3:eth9", "router13:eth3"]
+    - endpoints: ["router3:eth10", "router14:eth3"]
+    - endpoints: ["router3:eth11", "router15:eth3"]
+    - endpoints: ["router3:eth12", "router16:eth3"]
+    - endpoints: ["router3:eth13", "router17:eth3"]
+    - endpoints: ["router3:eth14", "router18:eth3"]
+    - endpoints: ["router3:eth15", "router19:eth3"]
+    - endpoints: ["router3:eth16", "router20:eth3"]
+    # --- Connections to Spine4 (router4) ---
+    - endpoints: ["router4:eth1", "router5:eth4"]
+    - endpoints: ["router4:eth2", "router6:eth4"]
+    - endpoints: ["router4:eth3", "router7:eth4"]
+    - endpoints: ["router4:eth4", "router8:eth4"]
+    - endpoints: ["router4:eth5", "router9:eth4"]
+    - endpoints: ["router4:eth6", "router10:eth4"]
+    - endpoints: ["router4:eth7", "router11:eth4"]
+    - endpoints: ["router4:eth8", "router12:eth4"]
+    - endpoints: ["router4:eth9", "router13:eth4"]
+    - endpoints: ["router4:eth10", "router14:eth4"]
+    - endpoints: ["router4:eth11", "router15:eth4"]
+    - endpoints: ["router4:eth12", "router16:eth4"]
+    - endpoints: ["router4:eth13", "router17:eth4"]
+    - endpoints: ["router4:eth14", "router18:eth4"]
+    - endpoints: ["router4:eth15", "router19:eth4"]
+    - endpoints: ["router4:eth16", "router20:eth4"]
 
+    # === CLIENT CONNECTIONS ===
+    - endpoints: ["pc1:eth1", "router5:eth5"]
+    - endpoints: ["pc2:eth1", "router20:eth5"]
