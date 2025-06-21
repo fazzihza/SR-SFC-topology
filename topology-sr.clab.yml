@@ -5,154 +5,234 @@ mgmt:
   ipv4-subnet: 172.100.100.0/24
   ipv6-subnet: 2001:172:100:100::/80
   
-topology:
-    nodes:
-      # --- SPINE ROUTERS ---
-      router1:
-        kind: linux
-        image: sflow/clab-frr
-        # Mounts ConfigMaps to a temporary, writable path
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router1-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router1-daemons-config, key: daemons } }
-        # Custom command to copy configs before starting
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router2:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router2-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router2-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router3:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router3-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router3-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router4:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router4-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router4-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
+filesFromConfigMap:
+    # --- Mounts untuk Router 1 ---
+    - node: router1
+      configMapName: router1-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router1
+      configMapName: router1-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 2 ---
+    - node: router2
+      configMapName: router2-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router2
+      configMapName: router2-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 3 ---
+    - node: router3
+      configMapName: router3-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router3
+      configMapName: router3-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 4 ---
+    - node: router4
+      configMapName: router4-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router4
+      configMapName: router4-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 5 ---
+    - node: router5
+      configMapName: router5-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router5
+      configMapName: router5-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 6 ---
+    - node: router6
+      configMapName: router6-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router6
+      configMapName: router6-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 7 ---
+    - node: router7
+      configMapName: router7-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router7
+      configMapName: router7-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 8 ---
+    - node: router8
+      configMapName: router8-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router8
+      configMapName: router8-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 9 ---
+    - node: router9
+      configMapName: router9-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router9
+      configMapName: router9-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 10 ---
+    - node: router10
+      configMapName: router10-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router10
+      configMapName: router10-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 11 ---
+    - node: router11
+      configMapName: router11-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router11
+      configMapName: router11-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 12 ---
+    - node: router12
+      configMapName: router12-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router12
+      configMapName: router12-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 13 ---
+    - node: router13
+      configMapName: router13-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router13
+      configMapName: router13-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 14 ---
+    - node: router14
+      configMapName: router14-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router14
+      configMapName: router14-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 15 ---
+    - node: router15
+      configMapName: router15-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router15
+      configMapName: router15-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 16 ---
+    - node: router16
+      configMapName: router16-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router16
+      configMapName: router16-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 17 ---
+    - node: router17
+      configMapName: router17-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router17
+      configMapName: router17-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 18 ---
+    - node: router18
+      configMapName: router18-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router18
+      configMapName: router18-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 19 ---
+    - node: router19
+      configMapName: router19-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router19
+      configMapName: router19-daemons-config
+      filePath: /etc/frr/daemons
+    # --- Mounts untuk Router 20 ---
+    - node: router20
+      configMapName: router20-frr-config
+      filePath: /etc/frr/frr.conf
+    - node: router20
+      configMapName: router20-daemons-config
+      filePath: /etc/frr/daemons
 
-      # --- LEAF ROUTERS ---
-      router5:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router5-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router5-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router6:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router6-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router6-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      # ... Anda perlu melanjutkan pola ini untuk router7 hingga router20 ...
-      router7:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router7-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router7-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router8:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router8-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router8-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router9:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router9-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router9-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router10:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router10-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router10-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router11:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router11-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router11-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router12:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router12-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router12-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router13:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router13-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router13-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router14:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router14-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router14-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router15:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router15-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router15-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router16:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router16-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router16-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router17:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router17-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router17-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router18:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router18-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router18-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router19:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router19-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router19-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
-      router20:
-        kind: linux
-        image: sflow/clab-frr
-        binds:
-          - { mountPath: /tmp/frr.conf, subPath: frr.conf, configMapKeyRef: { name: router20-frr-config, key: frr.conf } }
-          - { mountPath: /tmp/daemons, subPath: daemons, configMapKeyRef: { name: router20-daemons-config, key: daemons } }
-        command: ["/bin/sh", "-c", "cp /tmp/frr.conf /etc/frr/frr.conf && cp /tmp/daemons /etc/frr/daemons && /start.sh"]
+  # Definisi topologi jaringan Anda
+topology:
+      nodes:
+        # --- SPINE ROUTERS ---
+        router1:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router2:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router3:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router4:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+
+        # --- LEAF ROUTERS ---
+        router5:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router6:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router7:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router8:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router9:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router10:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router11:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router12:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router13:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router14:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router15:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router16:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router17:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router18:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router19:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
+        router20:
+          kind: linux
+          image: sflow/clab-frr
+          command: ["/usr/lib/frr/frrinit.sh", "start"]
 
       # --- CLIENT PCs (tidak perlu diubah) ---
       pc1:
@@ -177,12 +257,77 @@ topology:
       prometheus: { kind: linux, image: prom/prometheus:v2.47.0, ports: [ "9090:9090" ], binds: [ "./prometheus_ne.yml:/etc/prometheus/prometheus.yml" ] }
       grafana: { kind: linux, image: grafana/grafana-oss, ports: [ "3000:3000" ], env: { GF_SECURITY_ADMIN_USER: "admin", GF_SECURITY_ADMIN_PASSWORD: "admin" } }
       
-    links:
-      # --- KONEKSI JARINGAN (tidak perlu diubah) ---
-      # (Semua 66 link Leaf-Spine dan Client ada di sini)
-      - endpoints: ["router1:eth1", "router5:eth1"]
-      - endpoints: ["router1:eth2", "router6:eth1"]
-      # ... dan seterusnya ...
-      - endpoints: ["router4:eth16", "router20:eth4"]
-      - endpoints: ["pc1:eth1", "router5:eth5"]
-      - endpoints: ["pc2:eth1", "router20:eth5"]
+      links:
+    # === LEAF-SPINE CONNECTIONS (16 Leaves * 4 Spines = 64 Links) ===
+    # --- Connections to Spine1 (router1) ---
+        - endpoints: ["router1:eth1", "router5:eth1"]
+        - endpoints: ["router1:eth2", "router6:eth1"]
+        - endpoints: ["router1:eth3", "router7:eth1"]
+        - endpoints: ["router1:eth4", "router8:eth1"]
+        - endpoints: ["router1:eth5", "router9:eth1"]
+        - endpoints: ["router1:eth6", "router10:eth1"]
+        - endpoints: ["router1:eth7", "router11:eth1"]
+        - endpoints: ["router1:eth8", "router12:eth1"]
+        - endpoints: ["router1:eth9", "router13:eth1"]
+        - endpoints: ["router1:eth10", "router14:eth1"]
+        - endpoints: ["router1:eth11", "router15:eth1"]
+        - endpoints: ["router1:eth12", "router16:eth1"]
+        - endpoints: ["router1:eth13", "router17:eth1"]
+        - endpoints: ["router1:eth14", "router18:eth1"]
+        - endpoints: ["router1:eth15", "router19:eth1"]
+        - endpoints: ["router1:eth16", "router20:eth1"]
+        # --- Connections to Spine2 (router2) ---
+        - endpoints: ["router2:eth1", "router5:eth2"]
+        - endpoints: ["router2:eth2", "router6:eth2"]
+        - endpoints: ["router2:eth3", "router7:eth2"]
+        - endpoints: ["router2:eth4", "router8:eth2"]
+        - endpoints: ["router2:eth5", "router9:eth2"]
+        - endpoints: ["router2:eth6", "router10:eth2"]
+        - endpoints: ["router2:eth7", "router11:eth2"]
+        - endpoints: ["router2:eth8", "router12:eth2"]
+        - endpoints: ["router2:eth9", "router13:eth2"]
+        - endpoints: ["router2:eth10", "router14:eth2"]
+        - endpoints: ["router2:eth11", "router15:eth2"]
+        - endpoints: ["router2:eth12", "router16:eth2"]
+        - endpoints: ["router2:eth13", "router17:eth2"]
+        - endpoints: ["router2:eth14", "router18:eth2"]
+        - endpoints: ["router2:eth15", "router19:eth2"]
+        - endpoints: ["router2:eth16", "router20:eth2"]
+        # --- Connections to Spine3 (router3) ---
+        - endpoints: ["router3:eth1", "router5:eth3"]
+        - endpoints: ["router3:eth2", "router6:eth3"]
+        - endpoints: ["router3:eth3", "router7:eth3"]
+        - endpoints: ["router3:eth4", "router8:eth3"]
+        - endpoints: ["router3:eth5", "router9:eth3"]
+        - endpoints: ["router3:eth6", "router10:eth3"]
+        - endpoints: ["router3:eth7", "router11:eth3"]
+        - endpoints: ["router3:eth8", "router12:eth3"]
+        - endpoints: ["router3:eth9", "router13:eth3"]
+        - endpoints: ["router3:eth10", "router14:eth3"]
+        - endpoints: ["router3:eth11", "router15:eth3"]
+        - endpoints: ["router3:eth12", "router16:eth3"]
+        - endpoints: ["router3:eth13", "router17:eth3"]
+        - endpoints: ["router3:eth14", "router18:eth3"]
+        - endpoints: ["router3:eth15", "router19:eth3"]
+        - endpoints: ["router3:eth16", "router20:eth3"]
+        # --- Connections to Spine4 (router4) ---
+        - endpoints: ["router4:eth1", "router5:eth4"]
+        - endpoints: ["router4:eth2", "router6:eth4"]
+        - endpoints: ["router4:eth3", "router7:eth4"]
+        - endpoints: ["router4:eth4", "router8:eth4"]
+        - endpoints: ["router4:eth5", "router9:eth4"]
+        - endpoints: ["router4:eth6", "router10:eth4"]
+        - endpoints: ["router4:eth7", "router11:eth4"]
+        - endpoints: ["router4:eth8", "router12:eth4"]
+        - endpoints: ["router4:eth9", "router13:eth4"]
+        - endpoints: ["router4:eth10", "router14:eth4"]
+        - endpoints: ["router4:eth11", "router15:eth4"]
+        - endpoints: ["router4:eth12", "router16:eth4"]
+        - endpoints: ["router4:eth13", "router17:eth4"]
+        - endpoints: ["router4:eth14", "router18:eth4"]
+        - endpoints: ["router4:eth15", "router19:eth4"]
+        - endpoints: ["router4:eth16", "router20:eth4"]
+
+        # === CLIENT CONNECTIONS ===
+        - endpoints: ["pc1:eth1", "router5:eth5"]
+        - endpoints: ["pc2:eth1", "router20:eth5"]
