@@ -2,7 +2,7 @@
 
 # --- PENTING: Ganti nilai ini jika nama topologi Anda berbeda ---
 # Nama ini harus sesuai dengan 'metadata.name' di file YAML Anda
-TOPOLOGY_NAME="srsfc"
+TOPOLOGY_NAME="srv6-mesh"
 
 # Definisikan namespace yang akan dibuat oleh Clabernetes
 NAMESPACE="c9s-$TOPOLOGY_NAME"
